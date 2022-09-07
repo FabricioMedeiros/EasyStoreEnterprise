@@ -3,9 +3,44 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BB7A2E9C-3629-4524-8DDE-F75A8A64BDF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Building Blocks", "Building Blocks", "{E884E881-41CB-47B0-8FD9-32428D6A6D51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{986C62B4-625F-4D8F-B3F9-14B826DC0CFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{EDB54255-E6C7-4A2B-8E8A-8FBC51356734}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F40955EA-F1F6-4FA5-B2D4-3C8FD963C549}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{FCE986C5-BB6A-431A-8520-5FA97A3C7031}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{4EAACD9D-E94F-4658-A819-5210B80615E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECE.Authentication.API", "src\services\ECE.Authentication.API\ECE.Authentication.API.csproj", "{E607336F-C743-43A9-9A6E-6146E8EC0FA1}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E884E881-41CB-47B0-8FD9-32428D6A6D51} = {BB7A2E9C-3629-4524-8DDE-F75A8A64BDF2}
+		{986C62B4-625F-4D8F-B3F9-14B826DC0CFE} = {BB7A2E9C-3629-4524-8DDE-F75A8A64BDF2}
+		{EDB54255-E6C7-4A2B-8E8A-8FBC51356734} = {BB7A2E9C-3629-4524-8DDE-F75A8A64BDF2}
+		{F40955EA-F1F6-4FA5-B2D4-3C8FD963C549} = {E884E881-41CB-47B0-8FD9-32428D6A6D51}
+		{FCE986C5-BB6A-431A-8520-5FA97A3C7031} = {EDB54255-E6C7-4A2B-8E8A-8FBC51356734}
+		{4EAACD9D-E94F-4658-A819-5210B80615E4} = {986C62B4-625F-4D8F-B3F9-14B826DC0CFE}
+		{E607336F-C743-43A9-9A6E-6146E8EC0FA1} = {4EAACD9D-E94F-4658-A819-5210B80615E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BF25E5E-073E-4228-A2E3-CEAE546AB337}
