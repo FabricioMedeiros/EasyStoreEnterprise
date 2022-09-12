@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECE.Authentication.API.Controllers
 {
+    [ApiController]
     [Route("api/authentication")]
     public class AuthController : Controller
     {

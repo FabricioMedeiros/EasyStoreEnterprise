@@ -72,4 +72,7 @@ D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.MvcApplicationPartsAssemblyInfo.cs
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.csproj.CopyComplete
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.csproj.AssemblyReference.cache
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
