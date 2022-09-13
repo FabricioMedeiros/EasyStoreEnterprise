@@ -31,6 +31,7 @@ namespace ECE.Authentication.API
 
             services.AddDefaultIdentity<IdentityUser>()
                     .AddRoles<IdentityRole>()
+                    .AddErrorDescriber<IdentityMessagesPortuguese>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
