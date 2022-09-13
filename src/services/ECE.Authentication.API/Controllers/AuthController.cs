@@ -14,9 +14,8 @@ using System.Threading.Tasks;
 
 namespace ECE.Authentication.API.Controllers
 {
-    [ApiController]
     [Route("api/authentication")]
-    public class AuthController : Controller
+    public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -32,7 +31,7 @@ namespace ECE.Authentication.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(UserRegister userRegister)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser
             {
@@ -45,26 +44,37 @@ namespace ECE.Authentication.API.Controllers
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                return Ok(await CreateJwt(userRegister.Email));
+                return CustomResponse(await CreateJwt(userRegister.Email));
             }
 
-            return BadRequest();
+            foreach (var error in result.Errors)
+            {
+                AddProcessingError(error.Description);
+            }
+
+            return CustomResponse();
         }
 
         [HttpPost("login")]
         public async Task<ActionResult> Login(UserLogin userLogin)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, true);
 
             if (result.Succeeded)
             {
-                return Ok(await CreateJwt(userLogin.Email));
+                return CustomResponse(await CreateJwt(userLogin.Email));
             }
 
-            return BadRequest();
+            if (result.IsLockedOut)
+            {
+                AddProcessingError("Usuário temporariamente bloqueado por tentativas inválidas");
+                return CustomResponse();
+            }
+
+            AddProcessingError("Usuário ou Senha incorretos");
+            return CustomResponse();
         }
 
         private async Task<UserResponseLogin> CreateJwt(string email)
