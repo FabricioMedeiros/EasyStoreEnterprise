@@ -76,3 +76,4 @@ D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.dll
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.pdb
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.genruntimeconfig.cache
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.csproj.AssemblyReference.cache

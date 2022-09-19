@@ -81,6 +81,15 @@ namespace ECE.Authentication.API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(email);
             var claims = await _userManager.GetClaimsAsync(user);
+            ClaimsIdentity identityClaims = await GetUserClaims(user, claims);
+
+            string encodedToken = EncondeToken(identityClaims);
+            return UserResponseLogin(user, claims, encodedToken);
+
+        }      
+
+        private async Task<ClaimsIdentity> GetUserClaims(IdentityUser user, IList<Claim> claims)
+        {
             var userRoles = await _userManager.GetRolesAsync(user);
 
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
@@ -96,7 +105,11 @@ namespace ECE.Authentication.API.Controllers
 
             var identityClaims = new ClaimsIdentity();
             identityClaims.AddClaims(claims);
+            return identityClaims;
+        }
 
+        private string EncondeToken(ClaimsIdentity identityClaims)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
@@ -109,8 +122,12 @@ namespace ECE.Authentication.API.Controllers
             });
 
             var encodedToken = tokenHandler.WriteToken(token);
+            return encodedToken;
+        }
 
-            var response = new UserResponseLogin
+        private UserResponseLogin UserResponseLogin(IdentityUser user, ICollection<Claim> claims, string encodedToken)
+        {
+            return new UserResponseLogin
             {
                 AccessToken = encodedToken,
                 ExpiresIn = TimeSpan.FromHours(_appSettings.ExpirationHours).TotalSeconds,
@@ -121,8 +138,6 @@ namespace ECE.Authentication.API.Controllers
                     Claims = claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value })
                 }
             };
-
-            return response;
         }
 
         private static long ToUnixEpochDate(DateTime date)
