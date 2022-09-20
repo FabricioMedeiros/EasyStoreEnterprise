@@ -1,3 +1,9 @@
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.AssemblyInfoInputs.cache
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.AssemblyInfo.cs
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.csproj.CoreCompileInputs.cache
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.MvcApplicationPartsAssemblyInfo.cs
+D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.MvcApplicationPartsAssemblyInfo.cache
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\appsettings.json
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\ECE.Authentication.API.StaticWebAssets.xml
@@ -62,12 +68,6 @@ D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.AssemblyInfoInputs.cache
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.AssemblyInfo.cs
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.csproj.CoreCompileInputs.cache
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.MvcApplicationPartsAssemblyInfo.cs
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.MvcApplicationPartsAssemblyInfo.cache
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\staticwebassets\ECE.Authentication.API.StaticWebAssets.Manifest.cache
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\staticwebassets\ECE.Authentication.API.StaticWebAssets.xml
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\scopedcss\bundle\ECE.Authentication.API.styles.css
@@ -76,4 +76,3 @@ D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.dll
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.pdb
 D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.genruntimeconfig.cache
-D:\Projetos\C_Sharp\EasyEcommerceEnterprise\src\services\ECE.Authentication.API\obj\Debug\netcoreapp3.1\ECE.Authentication.API.csproj.AssemblyReference.cache

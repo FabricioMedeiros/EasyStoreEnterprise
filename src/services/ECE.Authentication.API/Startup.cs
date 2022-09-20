@@ -1,3 +1,4 @@
+using ECE.Authentication.API.Configuration;
 using ECE.Authentication.API.Data;
 using ECE.Authentication.API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,92 +18,40 @@ namespace ECE.Authentication.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration { get; }
+
+        public Startup(IHostEnvironment hostEnvironment)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+                .AddEnvironmentVariables();
+
+            if (hostEnvironment.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentityConfiguration(Configuration);
 
-            services.AddDefaultIdentity<IdentityUser>()
-                    .AddRoles<IdentityRole>()
-                    .AddErrorDescriber<IdentityMessagesPortuguese>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddDefaultTokenProviders();
+            services.AddApiConfiguration();
 
-            //JSON Web Token - Configuration
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(bearerOptions =>
-            {
-                bearerOptions.RequireHttpsMetadata = true;
-                bearerOptions.SaveToken = true;
-                bearerOptions.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = appSettings.Audience,
-                    ValidIssuer = appSettings.Issuer
-                };
-            });
-
-
-            services.AddControllers();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo()
-                {
-                    Title = "Easy Ecommerce Enterprise Identity API",
-                    Description = "Esta API é responsável por Registrar e Autenticar os Logins de Acesso.",
-                    Contact = new OpenApiContact() { Name = "Fabrício Medeiros", Email = "fabriciomedeiros@hotmail.com.br" },
-                    License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
-                });
-
-            });
+            services.AddSwaggerConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseSwaggerConfiguration();
+            
+            app.UseApiConfiguration(env);
         }
     }
 }
