@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECE.Authentication.API", "src\services\ECE.Authentication.API\ECE.Authentication.API.csproj", "{E607336F-C743-43A9-9A6E-6146E8EC0FA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECE.WebApp.MVC", "src\web\ECE.WebApp.MVC\ECE.WebApp.MVC.csproj", "{F7A515A3-1073-44B6-83D9-BE2164D86FD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E607336F-C743-43A9-9A6E-6146E8EC0FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7A515A3-1073-44B6-83D9-BE2164D86FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7A515A3-1073-44B6-83D9-BE2164D86FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7A515A3-1073-44B6-83D9-BE2164D86FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7A515A3-1073-44B6-83D9-BE2164D86FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{FCE986C5-BB6A-431A-8520-5FA97A3C7031} = {EDB54255-E6C7-4A2B-8E8A-8FBC51356734}
 		{4EAACD9D-E94F-4658-A819-5210B80615E4} = {986C62B4-625F-4D8F-B3F9-14B826DC0CFE}
 		{E607336F-C743-43A9-9A6E-6146E8EC0FA1} = {4EAACD9D-E94F-4658-A819-5210B80615E4}
+		{F7A515A3-1073-44B6-83D9-BE2164D86FD8} = {FCE986C5-BB6A-431A-8520-5FA97A3C7031}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BF25E5E-073E-4228-A2E3-CEAE546AB337}
