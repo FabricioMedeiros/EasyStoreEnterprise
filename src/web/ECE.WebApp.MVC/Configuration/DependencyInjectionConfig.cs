@@ -7,7 +7,7 @@ namespace ECE.WebApp.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddHttpClient<IAuthenticationService, AuthenticationService>();
+            services.AddHttpClient<IAuthService, AuthService>();
         }
 
     }

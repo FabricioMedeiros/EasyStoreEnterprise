@@ -1,15 +1,21 @@
 ﻿using ECE.WebApp.MVC.Models;
 using ECE.WebApp.MVC.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ECE.WebApp.MVC.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAuthService _authenticationService;
 
-        public AuthController(IAuthenticationService authenticationService)
+        public AuthController(IAuthService authenticationService)
         {
             _authenticationService = authenticationService;
         }
@@ -29,6 +35,8 @@ namespace ECE.WebApp.MVC.Controllers
 
             var response = await _authenticationService.Register(userRegister);
 
+            await SignIn(response);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -47,6 +55,8 @@ namespace ECE.WebApp.MVC.Controllers
 
             var response = await _authenticationService.Login(userLogin);
 
+            await SignIn(response);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -55,6 +65,34 @@ namespace ECE.WebApp.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task SignIn(UserResponseLogin response)
+        {
+            var token = GetTokenFormatted(response.AccessToken);
+
+            var claims = new List<Claim>();
+
+            claims.Add(new Claim("JWT", response.AccessToken));
+            claims.AddRange(token.Claims);
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
+                IsPersistent = true
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
+
+        private static JwtSecurityToken GetTokenFormatted(string jwtToken)
+        {
+            return new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
         }
     }
 }

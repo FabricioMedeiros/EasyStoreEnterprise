@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace ECE.WebApp.MVC.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
 
-        public AuthenticationService(HttpClient httpClient)
+        public AuthService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<string> Login(UserLogin userLogin)
+        public async Task<UserResponseLogin> Login(UserLogin userLogin)
         {
             var loginContent = new StringContent(
                 JsonSerializer.Serialize(userLogin),
@@ -25,10 +25,17 @@ namespace ECE.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("https://localhost:44334/api/authentication/login", loginContent);
 
-            return JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync());
+            var teste = await response.Content.ReadAsStringAsync();
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync(), options);
         }
 
-        public async Task<string> Register(UserRegister userRegister)
+        public async Task<UserResponseLogin> Register(UserRegister userRegister)
         {
             var registerContent = new StringContent(
                  JsonSerializer.Serialize(userRegister),
@@ -37,7 +44,7 @@ namespace ECE.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("https://localhost:44334/api/authentication/register", registerContent);
 
-            return JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync());
+            return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync());
         }
     }
 }
