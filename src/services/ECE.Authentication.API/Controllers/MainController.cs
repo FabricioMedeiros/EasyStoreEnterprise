@@ -21,7 +21,7 @@ namespace ECE.Authentication.API.Controllers
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                { "Mensagens", Erros.ToArray() }
+                { "Messages", Erros.ToArray() }
             }));
         }
 

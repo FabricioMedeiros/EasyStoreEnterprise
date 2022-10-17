@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECE.WebApp.MVC.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService : Service, IAuthService
     {
         private readonly HttpClient _httpClient;
 
@@ -21,16 +21,21 @@ namespace ECE.WebApp.MVC.Services
             var loginContent = new StringContent(
                 JsonSerializer.Serialize(userLogin),
                 Encoding.UTF8,
-                "application/json");
+                "application/json");          
 
             var response = await _httpClient.PostAsync("https://localhost:44334/api/authentication/login", loginContent);
-
-            var teste = await response.Content.ReadAsStringAsync();
 
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
+
+            if (!CheckErrorsResponse(response))  {
+                return new UserResponseLogin
+                {
+                   ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+                };
+            }           
 
             return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync(), options);
         }
@@ -44,7 +49,20 @@ namespace ECE.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("https://localhost:44334/api/authentication/register", registerContent);
 
-            return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync());
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            if (!CheckErrorsResponse(response))
+            {
+                return new UserResponseLogin
+                {
+                    ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+                };
+            }
+
+            return JsonSerializer.Deserialize<UserResponseLogin>(await response.Content.ReadAsStringAsync(), options);
         }
     }
 }

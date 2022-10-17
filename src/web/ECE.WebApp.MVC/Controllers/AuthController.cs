@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ECE.WebApp.MVC.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController : MainController
     {
         private readonly IAuthService _authenticationService;
 
@@ -35,6 +35,10 @@ namespace ECE.WebApp.MVC.Controllers
 
             var response = await _authenticationService.Register(userRegister);
 
+            if (HasErrorsResponse(response.ResponseResult)) {
+                return View(userRegister);
+            }
+
             await SignIn(response);
 
             return RedirectToAction("Index", "Home");
@@ -54,6 +58,11 @@ namespace ECE.WebApp.MVC.Controllers
             if (!ModelState.IsValid) return View(userLogin);
 
             var response = await _authenticationService.Login(userLogin);
+
+            if (HasErrorsResponse(response.ResponseResult))
+            {
+                return View(userLogin);
+            }
 
             await SignIn(response);
 
