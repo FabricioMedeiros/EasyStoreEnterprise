@@ -1,4 +1,7 @@
-﻿using ECE.WebApp.MVC.Models;
+﻿using ECE.WebApp.MVC.Extensions;
+using ECE.WebApp.MVC.Models;
+using Microsoft.Extensions.Options;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -7,9 +10,10 @@ namespace ECE.WebApp.MVC.Services
     public class AuthService : Service, IAuthService
     {
         private readonly HttpClient _httpClient;
-
-        public AuthService(HttpClient httpClient)
+     
+        public AuthService(HttpClient httpClient, IOptions<AppSettings> settings)
         {
+            httpClient.BaseAddress = new Uri(settings.Value.AuthenticationUrl);
             _httpClient = httpClient;
         }
 
@@ -17,7 +21,7 @@ namespace ECE.WebApp.MVC.Services
         {
             var loginContent = JsonSerialize(userLogin);          
 
-            var response = await _httpClient.PostAsync("https://localhost:44334/api/authentication/login", loginContent);
+            var response = await _httpClient.PostAsync("/api/authentication/login", loginContent);
             
             if (!CheckErrorsResponse(response))  {
                 return new UserResponseLogin
@@ -33,7 +37,7 @@ namespace ECE.WebApp.MVC.Services
         {
             var registerContent = JsonSerialize(userRegister);
 
-            var response = await _httpClient.PostAsync("https://localhost:44334/api/authentication/register", registerContent);
+            var response = await _httpClient.PostAsync("/api/authentication/register", registerContent);
                         
             if (!CheckErrorsResponse(response))
             {
