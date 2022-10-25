@@ -11,7 +11,7 @@ namespace ECE.WebApp.MVC.Services
 {
     public abstract class Service
     {
-        protected StringContent GetContent(object data)
+        protected StringContent JsonSerialize(object data)
         {
             return new StringContent(
                                      JsonSerializer.Serialize(data),

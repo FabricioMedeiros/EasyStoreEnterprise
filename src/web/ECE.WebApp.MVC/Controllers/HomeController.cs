@@ -35,7 +35,7 @@ namespace ECE.WebApp.MVC.Controllers
             else if (id == 404)
             {
                 modelError.Message =
-                    "A página que está procurando não existe! <br />Em caso de dúvidas entre em contato com nosso suporte";
+                    "A página que está procurando não existe! <br />Em caso de dúvidas entre em contato com nosso suporte.";
                 modelError.Title = "Ops! Página não encontrada.";
                 modelError.ErrorCode = id;
             }
