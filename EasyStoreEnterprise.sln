@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{FCE986C5-BB6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{4EAACD9D-E94F-4658-A819-5210B80615E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECE.Authentication.API", "src\services\ECE.Authentication.API\ECE.Authentication.API.csproj", "{E607336F-C743-43A9-9A6E-6146E8EC0FA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Authentication.API", "src\services\ECE.Authentication.API\ESE.Authentication.API.csproj", "{E607336F-C743-43A9-9A6E-6146E8EC0FA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECE.WebApp.MVC", "src\web\ECE.WebApp.MVC\ECE.WebApp.MVC.csproj", "{F7A515A3-1073-44B6-83D9-BE2164D86FD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.WebApp.MVC", "src\web\ECE.WebApp.MVC\ESE.WebApp.MVC.csproj", "{F7A515A3-1073-44B6-83D9-BE2164D86FD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

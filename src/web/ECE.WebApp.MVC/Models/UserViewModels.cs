@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECE.WebApp.MVC.Models
+namespace ESE.WebApp.MVC.Models
 {
     public class UserRegister
     {

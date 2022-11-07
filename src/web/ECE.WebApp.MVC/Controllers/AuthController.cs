@@ -1,5 +1,5 @@
-﻿using ECE.WebApp.MVC.Models;
-using ECE.WebApp.MVC.Services;
+﻿using ESE.WebApp.MVC.Models;
+using ESE.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ECE.WebApp.MVC.Controllers
+namespace ESE.WebApp.MVC.Controllers
 {
     public class AuthController : MainController
     {

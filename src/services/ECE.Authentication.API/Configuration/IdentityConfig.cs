@@ -1,5 +1,5 @@
-﻿using ECE.Authentication.API.Data;
-using ECE.Authentication.API.Extensions;
+﻿using ESE.Authentication.API.Data;
+using ESE.Authentication.API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -7,13 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ECE.Authentication.API.Configuration
+namespace ESE.Authentication.API.Configuration
 {
     public static class IdentityConfig
     {

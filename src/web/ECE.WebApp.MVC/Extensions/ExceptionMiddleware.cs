@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace ECE.WebApp.MVC.Extensions
+namespace ESE.WebApp.MVC.Extensions
 {
     public class ExceptionMiddleware
     {

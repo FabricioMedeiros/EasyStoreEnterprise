@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ECE.WebApp.MVC.Models
+namespace ESE.WebApp.MVC.Models
 {
     public class ErrorViewModel
     {

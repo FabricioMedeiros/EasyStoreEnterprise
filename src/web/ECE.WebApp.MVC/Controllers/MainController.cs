@@ -1,8 +1,8 @@
-﻿using ECE.WebApp.MVC.Models;
+﻿using ESE.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace ECE.WebApp.MVC.Controllers
+namespace ESE.WebApp.MVC.Controllers
 {
     public class MainController : Controller
     {

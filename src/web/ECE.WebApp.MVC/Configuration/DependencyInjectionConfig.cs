@@ -1,9 +1,9 @@
-﻿using ECE.WebApp.MVC.Extensions;
-using ECE.WebApp.MVC.Services;
+﻿using ESE.WebApp.MVC.Extensions;
+using ESE.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ECE.WebApp.MVC.Configuration
+namespace ESE.WebApp.MVC.Configuration
 {
     public static class DependencyInjectionConfig
     {

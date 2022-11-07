@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LlMl4YR0Pu+GfFqWH9Sjf/mJwA+tLFRLDtVCC04PxBa69srxt3vhyuxIETcReT+tDkAUiECUy2nyMX9wLb1X4g==",
+  "dgSpecHash": "Y35R6helWagJW/nq5chd3jjjWg2O+6rHcdxGBv2lI0pg3y2QzbWEc7KL6Hj93MMS3N4MB3YMqezeXe0y2v4bWQ==",
   "success": true,
-  "projectFilePath": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\ECE.Authentication.API.csproj",
+  "projectFilePath": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\ESE.Authentication.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fabri\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.28\\microsoft.aspnetcore.authentication.jwtbearer.3.1.28.nupkg.sha512",
     "C:\\Users\\fabri\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.28\\microsoft.aspnetcore.cryptography.internal.3.1.28.nupkg.sha512",

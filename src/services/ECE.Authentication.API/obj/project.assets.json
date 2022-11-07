@@ -6193,9 +6193,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\ECE.Authentication.API.csproj",
-      "projectName": "ECE.Authentication.API",
-      "projectPath": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\ECE.Authentication.API.csproj",
+      "projectUniqueName": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\ESE.Authentication.API.csproj",
+      "projectName": "ESE.Authentication.API",
+      "projectPath": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\ESE.Authentication.API.csproj",
       "packagesPath": "C:\\Users\\fabri\\.nuget\\packages\\",
       "outputPath": "D:\\Projetos\\C_Sharp\\EasyEcommerceEnterprise\\src\\services\\ECE.Authentication.API\\obj\\",
       "projectStyle": "PackageReference",

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECE.Authentication.API.Configuration
+namespace ESE.Authentication.API.Configuration
 {
     public static class SwaggerConfig
     {

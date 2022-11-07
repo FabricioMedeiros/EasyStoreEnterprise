@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ECE.WebApp.MVC.Extensions
+namespace ESE.WebApp.MVC.Extensions
 {
     public interface IUser
     {

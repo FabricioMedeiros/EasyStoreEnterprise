@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECE.Authentication.API
+namespace ESE.Authentication.API
 {
     public class Program
     {

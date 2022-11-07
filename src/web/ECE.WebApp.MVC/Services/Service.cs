@@ -1,4 +1,4 @@
-﻿using ECE.WebApp.MVC.Extensions;
+﻿using ESE.WebApp.MVC.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ECE.WebApp.MVC.Services
+namespace ESE.WebApp.MVC.Services
 {
     public abstract class Service
     {

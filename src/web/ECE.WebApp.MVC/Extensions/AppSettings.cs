@@ -1,4 +1,4 @@
-﻿namespace ECE.WebApp.MVC.Extensions
+﻿namespace ESE.WebApp.MVC.Extensions
 {
     public class AppSettings
     {

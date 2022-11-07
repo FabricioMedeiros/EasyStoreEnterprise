@@ -1,7 +1,7 @@
-﻿using ECE.WebApp.MVC.Models;
+﻿using ESE.WebApp.MVC.Models;
 using System.Threading.Tasks;
 
-namespace ECE.WebApp.MVC.Services
+namespace ESE.WebApp.MVC.Services
 {
     public interface IAuthService 
     {

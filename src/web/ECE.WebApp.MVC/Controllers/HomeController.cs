@@ -1,4 +1,4 @@
-﻿using ECE.WebApp.MVC.Models;
+﻿using ESE.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECE.WebApp.MVC.Controllers
+namespace ESE.WebApp.MVC.Controllers
 {
     public class HomeController : MainController
     {

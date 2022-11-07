@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECE.Authentication.API.Controllers
+namespace ESE.Authentication.API.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller

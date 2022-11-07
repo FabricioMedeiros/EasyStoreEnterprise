@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace NSE.Identidade.API.Models
+namespace ESE.Authentication.API.Models
 {
     public class UserRegister
     {

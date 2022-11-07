@@ -1,11 +1,11 @@
-﻿using ECE.WebApp.MVC.Extensions;
-using ECE.WebApp.MVC.Models;
+﻿using ESE.WebApp.MVC.Extensions;
+using ESE.WebApp.MVC.Models;
 using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ECE.WebApp.MVC.Services
+namespace ESE.WebApp.MVC.Services
 {
     public class AuthService : Service, IAuthService
     {

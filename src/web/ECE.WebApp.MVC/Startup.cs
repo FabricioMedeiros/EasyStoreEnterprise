@@ -1,11 +1,11 @@
-using ECE.WebApp.MVC.Configuration;
+using ESE.WebApp.MVC.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ECE.WebApp.MVC
+namespace ESE.WebApp.MVC
 {
     public class Startup
     {

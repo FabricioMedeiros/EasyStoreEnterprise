@@ -1,6 +1,6 @@
-using ECE.Authentication.API.Configuration;
-using ECE.Authentication.API.Data;
-using ECE.Authentication.API.Extensions;
+using ESE.Authentication.API.Configuration;
+using ESE.Authentication.API.Data;
+using ESE.Authentication.API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 
-namespace ECE.Authentication.API
+namespace ESE.Authentication.API
 {
     public class Startup
     {
