@@ -1,14 +1,12 @@
 ﻿using ESE.Catalog.API.Models;
+using ESE.Core.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ESE.Catalog.API.Data
 {
-    public class CatalogDbContext : DbContext
+    public class CatalogDbContext : DbContext, IUnitOfWork
     {
         public CatalogDbContext(DbContextOptions<CatalogDbContext> options) : base(options) { 
         }
