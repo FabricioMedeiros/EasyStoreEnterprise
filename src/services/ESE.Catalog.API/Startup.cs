@@ -1,3 +1,4 @@
+using ESE.Catalog.API.Configuration;
 using ESE.Catalog.API.Data;
 using ESE.Catalog.API.Data.Repository;
 using ESE.Catalog.API.Models;
@@ -29,32 +30,15 @@ namespace ESE.Catalog.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CatalogDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddApiConfiguration(Configuration);
 
-            services.AddControllers();
-
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<CatalogDbContext>();
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseApiConfiguration(env);
         }
     }
 }
