@@ -16,7 +16,7 @@ namespace ESE.Authentication.API.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "Easy Ecommerce Enterprise Identity API",
+                    Title = "Easy Store Enterprise Identity API",
                     Description = "Esta API é responsável por Registrar e Autenticar os Logins de Acesso.",
                     Contact = new OpenApiContact() { Name = "Fabrício Medeiros", Email = "fabriciomedeiros@hotmail.com.br" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
