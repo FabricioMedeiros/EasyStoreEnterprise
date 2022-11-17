@@ -29,7 +29,7 @@ namespace ESE.Authentication.API.Configuration
 
             app.UseRouting();
 
-            app.UseIdentityConfiguration();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

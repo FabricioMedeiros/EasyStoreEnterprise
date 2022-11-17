@@ -1,5 +1,5 @@
-﻿using ESE.Authentication.API.Extensions;
-using ESE.Authentication.API.Models;
+﻿using ESE.Authentication.API.Models;
+using ESE.WebAPI.Core.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
