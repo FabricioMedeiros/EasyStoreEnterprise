@@ -19,14 +19,14 @@ namespace ESE.WebApp.MVC.Controllers
         [Route("products")]
         public async Task<IActionResult> Index()
         {
-            var products = await _catalogService.Get();
+            var products = await _catalogService.GetAll();
 
             return View(products);
         }
 
         [HttpGet]
         [Route("product-details/{id}")]
-        public async Task<IActionResult> ProductDetail(Guid id)
+        public async Task<IActionResult> ProductDetails(Guid id)
         {
             var product = await _catalogService.GetById(id);
 
