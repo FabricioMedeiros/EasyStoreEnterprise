@@ -2,6 +2,7 @@ using ESE.Catalog.API.Configuration;
 using ESE.Catalog.API.Data;
 using ESE.Catalog.API.Data.Repository;
 using ESE.Catalog.API.Models;
+using ESE.WebAPI.Core.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,8 @@ namespace ESE.Catalog.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfiguration(Configuration);
+
+            services.AddJwtConfiguration(Configuration);
 
             services.AddSwaggerConfiguration();
 

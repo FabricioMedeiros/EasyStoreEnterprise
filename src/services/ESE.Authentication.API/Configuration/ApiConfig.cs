@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ESE.WebAPI.Core.Authentication;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,7 +30,7 @@ namespace ESE.Authentication.API.Configuration
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {
