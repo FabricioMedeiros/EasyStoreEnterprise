@@ -18,6 +18,16 @@ namespace ESE.WebApp.MVC.Extensions
                 sBuilder.Append(t.ToString("x2"));
             }
             return sBuilder.ToString();
+        }     
+
+        public static string FormatCurrency(this RazorPage page, decimal price)
+        {
+            return price > 0 ? string.Format(Thread.CurrentThread.CurrentCulture, "{0:C}", price) : "Gratuito";
+        }
+
+        public static string StockMessage(this RazorPage page, int stock)
+        {
+            return stock > 0 ? $"Apenas {stock} em estoque!" : "Produto esgotado!";
         }
     }
 }
