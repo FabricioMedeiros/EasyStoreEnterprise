@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESE.Catalog.API.Controllers
 {
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class CatalogController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -27,7 +27,7 @@ namespace ESE.Catalog.API.Controllers
             return await _productRepository.GetAll();
         }
 
-        [ClaimsAuthorize("Catalog", "Read")]
+        [ClaimsAuthorize("Catalog","Read")]
         [HttpGet("catalog/products/{id}")]
         public async Task<Product> ProductDetails(Guid id)
         {
