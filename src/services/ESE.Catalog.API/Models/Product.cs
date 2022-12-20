@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ESE.Catalog.API.Models
 {
-    public class Product : Entity, IAggrefateRoot
+    public class Product : Entity, IAggregateRoot
     {
         public string Name { get; set; }
         public string Description { get; set; }
