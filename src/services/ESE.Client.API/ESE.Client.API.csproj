@@ -9,12 +9,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.28" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Application\" />
     <Folder Include="Configuration\" />
-    <Folder Include="Data\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
