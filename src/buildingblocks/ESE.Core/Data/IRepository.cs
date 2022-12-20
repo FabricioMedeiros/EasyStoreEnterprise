@@ -3,7 +3,7 @@ using System;
 
 namespace ESE.Core.Data
 {
-    public interface IRepository<T> : IDisposable where T : IAggrefateRoot
+    public interface IRepository<T> : IDisposable where T : IAggregateRoot
     {
 
     }
