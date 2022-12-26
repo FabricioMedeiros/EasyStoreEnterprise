@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ESE.Core.DomainObjects;
+using System;
 
 
 namespace ESE.Clients.API.Models
 {
-    public class Address
+    public class Address : Entity
     {
         public Guid ClientId { get; set; }
         public string Street { get; set; }

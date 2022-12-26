@@ -4,7 +4,7 @@ namespace ESE.Core.DomainObjects
 {
     public class Email
     {
-        public const int oMinLength = 5;
+        public const int MinLength = 5;
         public const int MaxLength = 254;
         
         public string Address { get; private set; }
