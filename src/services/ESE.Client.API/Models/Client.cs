@@ -1,8 +1,9 @@
-﻿using ESE.Core.DomainObjects;
+﻿using ESE.Clients.API.Models;
+using ESE.Core.DomainObjects;
 using System;
 
 
-namespace ESE.Client.API.Models
+namespace ESE.Clients.API.Models
 {
     public class Client : Entity, IAggregateRoot
     {
