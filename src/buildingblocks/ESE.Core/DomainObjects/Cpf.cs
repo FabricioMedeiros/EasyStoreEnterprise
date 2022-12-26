@@ -71,4 +71,3 @@ namespace ESE.Core.DomainObjects
         }
     }
 }
-}
