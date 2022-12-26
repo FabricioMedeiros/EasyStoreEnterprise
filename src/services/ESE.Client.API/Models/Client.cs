@@ -1,5 +1,4 @@
-﻿using ESE.Clients.API.Models;
-using ESE.Core.DomainObjects;
+﻿using ESE.Core.DomainObjects;
 using System;
 
 

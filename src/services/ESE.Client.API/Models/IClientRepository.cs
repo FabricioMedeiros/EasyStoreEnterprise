@@ -1,5 +1,4 @@
 ﻿using ESE.Core.Data;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +9,6 @@ namespace ESE.Clients.API.Models
         void Add(Client client);
 
         Task<IEnumerable<Client>> GetAll();
-        Task<Client> GetByCPF(string cpf);
+        Task<Client> GetByCpf(string cpf);
     }
 }
