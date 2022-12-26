@@ -1,10 +1,10 @@
-﻿using ESE.Client.API.Models;
+﻿using ESE.Clients.API.Models;
 using ESE.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ESE.Client.API.Data
+namespace ESE.Clients.API.Data
 {
     public class ClientDbContext : DbContext, IUnitOfWork
     {
@@ -14,7 +14,7 @@ namespace ESE.Client.API.Data
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public DbSet<Models.Client> Clients { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
