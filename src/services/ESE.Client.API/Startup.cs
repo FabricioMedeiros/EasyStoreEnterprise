@@ -1,4 +1,5 @@
 using ESE.Clients.API.Configuration;
+using ESE.WebAPI.Core.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,11 +28,19 @@ namespace ESE.Clients.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfiguration(Configuration);
+
+            services.AddJwtConfiguration(Configuration);
+
+            services.AddSwaggerConfiguration();
+
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwaggerConfiguration();
+
             app.UseApiConfiguration(env);
         }
     }
