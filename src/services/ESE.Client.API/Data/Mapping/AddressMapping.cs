@@ -37,7 +37,7 @@ namespace ESE.Clients.API.Data.Mapping
                 .IsRequired()
                 .HasColumnType("varchar(20)");      
 
-            builder.ToTable("Address");
+            builder.ToTable("Addresses");
         }
     }
 }
