@@ -32,7 +32,7 @@ namespace ESE.Clients.API.Data.Mapping
                     .HasColumnType($"varchar({Email.MaxLength})");
             });
 
-            // 1 : 1 => Client : Endereco
+            // 1 : 1 => Client : Address
             builder.HasOne(c => c.Address)
                 .WithOne(c => c.Client);
 
