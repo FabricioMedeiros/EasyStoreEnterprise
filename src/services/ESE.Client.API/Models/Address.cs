@@ -26,7 +26,6 @@ namespace ESE.Clients.API.Models
             Neighborhood = neighborhood;
             City = city;
             State = state;
-            ZipCode = zipCode;
         }
     }
 }
