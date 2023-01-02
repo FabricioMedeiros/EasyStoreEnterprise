@@ -18,7 +18,7 @@ namespace ESE.Core.Messages
             ValidationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
         }
 
-        protected async Task<ValidationResult> PersistirDados(IUnitOfWork uow)
+        protected async Task<ValidationResult> SaveData(IUnitOfWork uow)
         {
             if (!await uow.Commit()) AddError("Houve um erro ao persistir os dados");
 
