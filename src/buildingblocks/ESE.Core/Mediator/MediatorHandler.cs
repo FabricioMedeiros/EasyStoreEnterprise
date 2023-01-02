@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ESE.Core.Mediator
 {
-    class MediatorHandler : IMediatorHandler
+    public class MediatorHandler : IMediatorHandler
     {
         private readonly IMediator _mediator;
 

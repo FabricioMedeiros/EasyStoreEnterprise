@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ESE.Core.Messages
 {
-    class Event : Message
+    public class Event : Message
     {
     }
 }
