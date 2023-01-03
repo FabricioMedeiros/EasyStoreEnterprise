@@ -1,4 +1,5 @@
 ﻿using ESE.Clients.API.Application.Commands;
+using ESE.Clients.API.Application.Events;
 using ESE.Clients.API.Data;
 using ESE.Clients.API.Data.Repository;
 using ESE.Clients.API.Models;
@@ -16,6 +17,8 @@ namespace ESE.Clients.API.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();
+
+            services.AddScoped<INotificationHandler<ClientRegisteredEvent>, ClientEventHandler>();
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ClientDbContext>();
