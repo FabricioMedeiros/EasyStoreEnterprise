@@ -1,4 +1,5 @@
-﻿using ESE.Clients.API.Models;
+﻿using ESE.Clients.API.Application.Events;
+using ESE.Clients.API.Models;
 using ESE.Core.Messages;
 using FluentValidation.Results;
 using MediatR;
@@ -29,7 +30,9 @@ namespace ESE.Clients.API.Application.Commands
                 return ValidationResult;
             }
 
-            _clientRepository.Add(client);                     
+            _clientRepository.Add(client);
+
+            client.AddEvent(new ClientRegisteredEvent(message.Id, message.Name, message.Email, message.Cpf));
 
             return await SaveData(_clientRepository.UnitOfWork);
         }
