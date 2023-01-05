@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,19 @@ namespace ESE.WebAPI.Core.Controllers
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);
 
-            foreach (var erro in erros)
+            foreach (var error in erros)
             {
-                AddProcessingError(erro.ErrorMessage);
+                AddProcessingError(error.ErrorMessage);
+            }
+
+            return CustomResponse();
+        }
+
+        protected ActionResult CustomResponse(ValidationResult validationResult)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                AddProcessingError(error.ErrorMessage);
             }
 
             return CustomResponse();
@@ -40,9 +51,9 @@ namespace ESE.WebAPI.Core.Controllers
             return Erros.Any();
         }
 
-        protected void AddProcessingError(string erro)
+        protected void AddProcessingError(string error)
         {
-            Erros.Add(erro);
+            Erros.Add(error);
         }
 
         protected void ClearProcessingError()
