@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ESE.Catalog.API.Models;
 using ESE.WebAPI.Core.Authentication;
+using ESE.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace ESE.Catalog.API.Controllers
 {
-    [ApiController]
-   // [Authorize]
-    public class CatalogController : Controller
+    [Authorize]
+    public class CatalogController : MainController
     {
         private readonly IProductRepository _productRepository;
 
