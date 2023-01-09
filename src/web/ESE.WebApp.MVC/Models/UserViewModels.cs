@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using static ESE.WebApp.MVC.Extensions.CpfAnnotation;
 
 namespace ESE.WebApp.MVC.Models
 {
@@ -12,6 +13,7 @@ namespace ESE.WebApp.MVC.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DisplayName("CPF")]
+        [Cpf]
         public string Cpf { get; set; }
 
         [Display(Name = "E-mail")]
