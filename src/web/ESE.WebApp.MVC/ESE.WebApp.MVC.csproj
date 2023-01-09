@@ -19,4 +19,8 @@
     <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\buildingblocks\ESE.Core\ESE.Core.csproj" />
+  </ItemGroup>
+
 </Project>
