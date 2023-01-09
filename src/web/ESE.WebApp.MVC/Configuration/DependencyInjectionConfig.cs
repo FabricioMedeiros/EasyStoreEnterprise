@@ -2,12 +2,14 @@
 using ESE.WebApp.MVC.Services;
 using ESE.WebApp.MVC.Services.Handlers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
 using System;
 using System.Net.Http;
+using static ESE.WebApp.MVC.Extensions.CpfAnnotation;
 
 namespace ESE.WebApp.MVC.Configuration
 {
@@ -15,6 +17,8 @@ namespace ESE.WebApp.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
+
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IAuthService, AuthService>();
