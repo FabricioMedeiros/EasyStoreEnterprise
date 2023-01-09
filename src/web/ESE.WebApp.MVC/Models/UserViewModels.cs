@@ -1,10 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ESE.WebApp.MVC.Models
 {
     public class UserRegister
     {
+        [Display(Name = "Nome Completo")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [DisplayName("CPF")]
+        public string Cpf { get; set; }
+
         [Display(Name = "E-mail")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]
