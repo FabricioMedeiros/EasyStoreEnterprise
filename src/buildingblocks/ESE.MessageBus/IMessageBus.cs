@@ -32,4 +32,4 @@ namespace ESE.MessageBus
             where TResponse : ResponseMessage;
     }
 }
-}
+
