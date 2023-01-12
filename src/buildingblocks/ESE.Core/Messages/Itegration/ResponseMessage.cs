@@ -4,6 +4,11 @@ namespace ESE.Core.Messages.Itegration
 {
     public class ResponseMessage : Message
     {
-       public ValidationResult ValidationResult { get; set; }
+        public ResponseMessage(ValidationResult validationResult)
+        {
+            ValidationResult = validationResult;
+        }
+
+        public ValidationResult ValidationResult { get; set; }
     }
 }
