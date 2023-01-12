@@ -3,6 +3,7 @@ using ESE.Clients.API.Application.Events;
 using ESE.Clients.API.Data;
 using ESE.Clients.API.Data.Repository;
 using ESE.Clients.API.Models;
+using ESE.Clients.API.Services;
 using ESE.Core.Mediator;
 using FluentValidation.Results;
 using MediatR;
@@ -22,7 +23,8 @@ namespace ESE.Clients.API.Configuration
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ClientDbContext>();
-            
+
+            services.AddHostedService<RegisterClientIntegrationHandle>();            
         }
     }
 }
