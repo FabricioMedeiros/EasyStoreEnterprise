@@ -22,9 +22,7 @@ namespace ESE.Clients.API.Configuration
             services.AddScoped<INotificationHandler<ClientRegisteredEvent>, ClientEventHandler>();
 
             services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddScoped<ClientDbContext>();
-
-            services.AddHostedService<RegisterClientIntegrationHandle>();            
+            services.AddScoped<ClientDbContext>();          
         }
     }
 }
