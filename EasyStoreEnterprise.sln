@@ -40,11 +40,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Clients.API", "src\serv
 	ProjectSection(ProjectDependencies) = postProject
 		{EF03D91D-37B8-40B7-B070-D1802A923A6D} = {EF03D91D-37B8-40B7-B070-D1802A923A6D}
 		{4CEA0B38-08AF-46AA-834E-42D84BEC0CF7} = {4CEA0B38-08AF-46AA-834E-42D84BEC0CF7}
+		{42A664DE-7173-44CE-9026-2B5D80B25BAB} = {42A664DE-7173-44CE-9026-2B5D80B25BAB}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBus", "MessageBus", "{90F081F6-E436-4EAC-AA77-CE1DBECFBDA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESE.MessageBus", "src\buildingblocks\ESE.MessageBus\ESE.MessageBus.csproj", "{42A664DE-7173-44CE-9026-2B5D80B25BAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.MessageBus", "src\buildingblocks\ESE.MessageBus\ESE.MessageBus.csproj", "{42A664DE-7173-44CE-9026-2B5D80B25BAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
