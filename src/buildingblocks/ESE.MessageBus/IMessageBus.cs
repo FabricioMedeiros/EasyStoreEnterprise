@@ -1,4 +1,5 @@
-﻿using ESE.Core.Messages.Itegration;
+﻿using EasyNetQ;
+using ESE.Core.Messages.Itegration;
 using System;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace ESE.MessageBus
     public interface IMessageBus : IDisposable 
     {
         bool IsConnected { get; }
+        IAdvancedBus AdvancedBus { get; }
         void Publish<T>(T message) where T : IntegrationEvent;
 
         Task PublishAsync<T>(T message) where T : IntegrationEvent;

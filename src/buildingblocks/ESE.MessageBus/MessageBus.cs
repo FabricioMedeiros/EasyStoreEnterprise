@@ -10,7 +10,7 @@ namespace ESE.MessageBus
     public class MessageBus : IMessageBus
     {
         private IBus _bus;
-
+        private IAdvancedBus _advancedBus;
         private readonly string _connectionString;
 
         public MessageBus(string connectionString)
@@ -86,6 +86,9 @@ namespace ESE.MessageBus
             policy.Execute(() =>
             {
                 _bus = RabbitHutch.CreateBus(_connectionString);
+                _advancedBus = _bus.Advanced;
+
+                _advancedBus.Disconnected += OnDisconnect;
             });
         }
 

@@ -21,12 +21,23 @@ namespace ESE.Clients.API.Services
             _serviceProvider = serviceProvider;
             _bus = bus;
         }
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        private void SetResponder()
         {
             _bus.RespondAsync<UserRegisteredIntegrationEvent, ResponseMessage>(async request =>
               await RegisterClient(request));
 
+            _bus.AdvancedBus.Connected += OnConnect;
+        }
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            SetResponder();
+
             return Task.CompletedTask;
+        }
+
+        private void OnConnect(object s, EventArgs e)
+        {
+            SetResponder();
         }
 
         private async Task<ResponseMessage> RegisterClient(UserRegisteredIntegrationEvent message)
