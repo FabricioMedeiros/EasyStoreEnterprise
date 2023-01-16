@@ -1,6 +1,6 @@
-﻿using EasyNetQ;
-using ESE.Authentication.API.Models;
+﻿using ESE.Authentication.API.Models;
 using ESE.Core.Messages.Itegration;
+using ESE.MessageBus;
 using ESE.WebAPI.Core.Authentication;
 using ESE.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Identity;
@@ -24,13 +24,14 @@ namespace ESE.Authentication.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        private IBus _bus;
+        private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings)
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings, IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("register")]
@@ -50,7 +51,14 @@ namespace ESE.Authentication.API.Controllers
 
             if (result.Succeeded)
             {
-                var success = await RegisterClient(userRegister); 
+                var clientResult = await RegisterClient(userRegister); 
+
+                if (!clientResult.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(clientResult.ValidationResult);
+                }
+
                 return CustomResponse(await CreateJwt(userRegister.Email));
             }
 
@@ -60,18 +68,6 @@ namespace ESE.Authentication.API.Controllers
             }
 
             return CustomResponse();
-        }
-
-        private async Task<ResponseMessage> RegisterClient(UserRegister userRegister)
-        {
-            var user = await _userManager.FindByEmailAsync(userRegister.Email);
-
-            var userRegistered = new UserRegisteredIntegrationEvent(Guid.Parse(user.Id), userRegister.Name, userRegister.Email, userRegister.Cpf);
-
-            _bus = RabbitHutch.CreateBus("host=localhost:5672");
-
-            var responseMessage = await _bus.RequestAsync<UserRegisteredIntegrationEvent, ResponseMessage>(userRegistered);
-            return responseMessage;
         }
 
         [HttpPost("login")]
@@ -161,5 +157,22 @@ namespace ESE.Authentication.API.Controllers
 
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+        private async Task<ResponseMessage> RegisterClient(UserRegister userRegister)
+        {
+            var user = await _userManager.FindByEmailAsync(userRegister.Email);
+
+            var userRegistered = new UserRegisteredIntegrationEvent(Guid.Parse(user.Id), userRegister.Name, userRegister.Email, userRegister.Cpf);
+
+            try
+            {
+                return await _bus.RequestAsync<UserRegisteredIntegrationEvent, ResponseMessage>(userRegistered);
+            }
+            catch 
+            {
+               await _userManager.DeleteAsync(user);
+               throw;
+            }          
+        }
     }
 }
