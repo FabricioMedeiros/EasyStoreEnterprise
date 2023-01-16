@@ -41,7 +41,7 @@ namespace ESE.WebApp.MVC.Controllers
 
             await SignIn(response);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalog");
         }
 
         [HttpGet]
@@ -71,7 +71,7 @@ namespace ESE.WebApp.MVC.Controllers
 
             if (string.IsNullOrEmpty(returnUrl))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Catalog");
             }
 
             return LocalRedirect(returnUrl);
@@ -82,7 +82,7 @@ namespace ESE.WebApp.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalog");
         }
 
         private async Task SignIn(UserResponseLogin response)
