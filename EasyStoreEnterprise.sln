@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.MessageBus", "src\build
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart", "Cart", "{0EDE6A76-408A-494E-9A7F-C55165D4E576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESE.Cart.API", "src\services\ESE.Cart.API\ESE.Cart.API.csproj", "{9984BD19-FDDB-41FD-90BE-D3E117F2C841}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Cart.API", "src\services\ESE.Cart.API\ESE.Cart.API.csproj", "{9984BD19-FDDB-41FD-90BE-D3E117F2C841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
