@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace ESE.WebAPI.Core.User
 {
-    public class AspNetUser : IUserAspNet
+    public class AspNetUser : IAspNetUser
     {
         private readonly IHttpContextAccessor _accessor;
 
