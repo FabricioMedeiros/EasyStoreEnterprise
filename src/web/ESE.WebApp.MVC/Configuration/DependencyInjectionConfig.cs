@@ -1,4 +1,4 @@
-﻿using ESE.WebApp.MVC.Extensions;
+﻿using ESE.WebAPI.Core.User;
 using ESE.WebApp.MVC.Services;
 using ESE.WebApp.MVC.Services.Handlers;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +30,7 @@ namespace ESE.WebApp.MVC.Configuration
                           p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30))); ;
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<AspNetUser, AspNetUser>();
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿@using ESE.WebApp.MVC.Extensions
-@inject IUser AppUser
+@using ESE.WebAPI.Core.User
+@inject IUserAspNet AppUser
 
 @if (AppUser.IsAuthenticated())
 {
@@ -21,7 +22,7 @@ else
         <small class="title text-muted">Bem vindo!</small>
         <div>
             <a asp-controller="Auth" asp-action="Login"> Login</a> <span> | </span>
-            <a asp-controller="Auth" asp-action="Register">Crie sua conta</a> 
+            <a asp-controller="Auth" asp-action="Register">Crie sua conta</a>
         </div>
     </div>
 }
