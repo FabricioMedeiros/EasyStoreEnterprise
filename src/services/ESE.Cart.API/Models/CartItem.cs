@@ -39,6 +39,11 @@ namespace ESE.Cart.API.Models
             Quantity = units;
         }
 
+        internal bool IsValid()
+        {
+            return new CartItemValidation().Validate(this).IsValid;
+        }
+
         public class CartItemValidation : AbstractValidator<CartItem>
         {
             public CartItemValidation()
