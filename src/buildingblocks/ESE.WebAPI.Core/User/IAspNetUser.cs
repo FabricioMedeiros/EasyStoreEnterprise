@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace ESE.WebAPI.Core.User
 {
-    public interface IUserAspNet
+    public interface IAspNetUser
     {
         string Name { get; }
         Guid GetUserId();
