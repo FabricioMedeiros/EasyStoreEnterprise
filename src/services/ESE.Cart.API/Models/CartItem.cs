@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 
 namespace ESE.Cart.API.Models
 {
@@ -18,5 +19,25 @@ namespace ESE.Cart.API.Models
             Id = Guid.NewGuid();
         }
 
+        internal void linkCart(Guid cartId)
+        {
+            CartId = cartId;
+        }
+
+        internal decimal CalculateValue()
+        {
+            return Quantity * Price;
+        }
+
+        internal void AddUnits(int units)
+        {
+            Quantity += units;
+        }
+
+        internal void UpdateUnits(int units)
+        {
+            Quantity = units;
+        }
+        
     }
 }
