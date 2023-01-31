@@ -73,7 +73,7 @@ namespace ESE.Cart.API.Models
             UpdateItem(item);
         }
 
-        internal void RemoverItem(CartItem item)
+        internal void RemoveItem(CartItem item)
         {
             Items.Remove(GetProdutById(item.ProductId));
             CalculateTotalValueCart();

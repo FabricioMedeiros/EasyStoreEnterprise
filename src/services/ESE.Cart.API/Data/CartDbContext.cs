@@ -13,7 +13,7 @@ namespace ESE.Cart.API.Data
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public DbSet<CartItem> CartItens { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
         public DbSet<CartClient> CartClients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

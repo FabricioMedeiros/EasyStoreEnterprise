@@ -27,7 +27,7 @@ namespace ESE.Cart.API.Controllers
         }
 
         [HttpPost("cart")]
-        public async Task<IActionResult> AddItemCart(CartItem item)
+        public async Task<IActionResult> AddCartItem(CartItem item)
         {
             var cart = await GetCartClient();
 
@@ -44,16 +44,36 @@ namespace ESE.Cart.API.Controllers
         }
 
         [HttpPut("cart/{productId}")]
-        public async Task<IActionResult> UpdateItemCart(Guid productId, CartItem item)
+        public async Task<IActionResult> UpdateCartItem(Guid productId, CartItem item)
         {
             var cart = await GetCartClient();
-            var itemCart = await GetItemCart(productId, cart, item);
+            var cartItem = await GetCartItem(productId, cart, item);
             
-            if (itemCart == null) return CustomResponse();
+            if (cartItem == null) return CustomResponse();
 
-            cart.UpdateUnits(itemCart, item.Quantity);         
+            cart.UpdateUnits(cartItem, item.Quantity);         
 
-            _context.CartItens.Update(itemCart);
+            _context.CartItems.Update(cartItem);
+            _context.CartClients.Update(cart);
+
+            await SaveData();
+            return CustomResponse();
+        }
+
+        [HttpDelete("carrinho/{produtoId}")]
+        public async Task<IActionResult> RemoveCartItem(Guid productId)
+        {
+            var cart = await GetCartClient();
+
+            var cartItem = await GetCartItem(productId, cart);
+
+            if (cartItem == null) return CustomResponse();
+
+            if (HasError()) return CustomResponse();
+
+            cart.RemoveItem(cartItem);
+
+            _context.CartItems.Remove(cartItem);
             _context.CartClients.Update(cart);
 
             await SaveData();
@@ -81,16 +101,16 @@ namespace ESE.Cart.API.Controllers
 
             if (productExists)
             {
-                _context.CartItens.Update(cart.GetProdutById(item.ProductId));
+                _context.CartItems.Update(cart.GetProdutById(item.ProductId));
             }
             else
             {
-                _context.CartItens.Add(item);
+                _context.CartItems.Add(item);
             }
 
             _context.CartClients.Update(cart);
         }
-        private async Task<CartItem> GetItemCart(Guid productId, CartClient cart, CartItem item = null)
+        private async Task<CartItem> GetCartItem(Guid productId, CartClient cart, CartItem item = null)
         {
             if (item != null && productId != item.ProductId)
             {
@@ -104,16 +124,16 @@ namespace ESE.Cart.API.Controllers
                 return null;
             }
 
-            var itemCart = await _context.CartItens
+            var cartItem = await _context.CartItems
                 .FirstOrDefaultAsync(i => i.CartId == cart.Id && i.ProductId == productId);
 
-            if (itemCart == null || !cart.ItemExistsCart(itemCart))
+            if (cartItem == null || !cart.ItemExistsCart(cartItem))
             {
                 AddProcessingError("O item não está no carrinho");
                 return null;
             }
 
-            return itemCart;
+            return cartItem;
         }
         private async Task SaveData()
         {
