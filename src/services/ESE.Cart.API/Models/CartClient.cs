@@ -53,6 +53,32 @@ namespace ESE.Cart.API.Models
             CalculateTotalValueCart();
         }
 
+        internal void UpdateItem(CartItem item)
+        {
+            if (!item.IsValid()) return;
+
+            item.linkCart(Id);
+
+            var itemExists = GetProdutById(item.ProductId);
+
+            Items.Remove(itemExists);
+            Items.Add(item);
+
+            CalculateTotalValueCart();
+        }
+
+        internal void UpdateUnits(CartItem item, int units)
+        {
+            item.UpdateUnits(units);
+            UpdateItem(item);
+        }
+
+        internal void RemoverItem(CartItem item)
+        {
+            Items.Remove(GetProdutById(item.ProductId));
+            CalculateTotalValueCart();
+        }
+
     }
 
 }

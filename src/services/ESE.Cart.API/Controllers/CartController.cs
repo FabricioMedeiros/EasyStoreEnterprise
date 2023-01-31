@@ -27,7 +27,7 @@ namespace ESE.Cart.API.Controllers
         }
 
         [HttpPost("cart")]
-        public async Task<IActionResult> AddCartItem(CartItem item)
+        public async Task<IActionResult> AddItemCart(CartItem item)
         {
             var cart = await GetCartClient();
 
@@ -38,9 +38,25 @@ namespace ESE.Cart.API.Controllers
 
             if (HasError()) return CustomResponse();
 
-            var result = await _context.SaveChangesAsync();
-            if (result < 1) AddProcessingError('Não foi possível salvar os dados no banco.');
+            await SaveData();
 
+            return CustomResponse();
+        }
+
+        [HttpPut("cart/{productId}")]
+        public async Task<IActionResult> UpdateItemCart(Guid productId, CartItem item)
+        {
+            var cart = await GetCartClient();
+            var itemCart = await GetItemCart(productId, cart, item);
+            
+            if (itemCart == null) return CustomResponse();
+
+            cart.UpdateUnits(itemCart, item.Quantity);         
+
+            _context.CartItens.Update(itemCart);
+            _context.CartClients.Update(cart);
+
+            await SaveData();
             return CustomResponse();
         }
 
@@ -50,7 +66,6 @@ namespace ESE.Cart.API.Controllers
                 .Include(c => c.Items)
                 .FirstOrDefaultAsync(c => c.ClientId == _user.GetUserId());
         }
-
         private void CreateCart(CartItem item)
         {
             var cart = new CartClient(_user.GetUserId());
@@ -58,7 +73,6 @@ namespace ESE.Cart.API.Controllers
 
             _context.CartClients.Add(cart);
         }
-
         private void UpdateCart(CartClient cart, CartItem item)
         {
             var productExists = cart.ItemExistsCart(item);
@@ -75,6 +89,36 @@ namespace ESE.Cart.API.Controllers
             }
 
             _context.CartClients.Update(cart);
+        }
+        private async Task<CartItem> GetItemCart(Guid productId, CartClient cart, CartItem item = null)
+        {
+            if (item != null && productId != item.ProductId)
+            {
+                AddProcessingError("O item não corresponde ao informado");
+                return null;
+            }
+
+            if (cart == null)
+            {
+                AddProcessingError("Carrinho não encontrado");
+                return null;
+            }
+
+            var itemCart = await _context.CartItens
+                .FirstOrDefaultAsync(i => i.CartId == cart.Id && i.ProductId == productId);
+
+            if (itemCart == null || !cart.ItemExistsCart(itemCart))
+            {
+                AddProcessingError("O item não está no carrinho");
+                return null;
+            }
+
+            return itemCart;
+        }
+        private async Task SaveData()
+        {
+            var result = await _context.SaveChangesAsync();
+            if (result < 1) AddProcessingError("Não foi possível salvar os dados no banco.");
         }
 
     }
