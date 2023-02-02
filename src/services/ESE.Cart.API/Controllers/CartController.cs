@@ -5,6 +5,7 @@ using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ESE.Cart.API.Controllers
@@ -36,6 +37,8 @@ namespace ESE.Cart.API.Controllers
             else
                UpdateCart(cart, item);
 
+            ValidateCart(cart);
+             
             if (HasError()) return CustomResponse();
 
             await SaveData();
@@ -51,7 +54,11 @@ namespace ESE.Cart.API.Controllers
             
             if (cartItem == null) return CustomResponse();
 
-            cart.UpdateUnits(cartItem, item.Quantity);         
+            cart.UpdateUnits(cartItem, item.Quantity);
+
+            ValidateCart(cart);
+
+            if (HasError()) return CustomResponse();
 
             _context.CartItems.Update(cartItem);
             _context.CartClients.Update(cart);
@@ -140,6 +147,12 @@ namespace ESE.Cart.API.Controllers
             var result = await _context.SaveChangesAsync();
             if (result < 1) AddProcessingError("Não foi possível salvar os dados no banco.");
         }
+        private bool ValidateCart(CartClient cart)
+        {
+            if (cart.IsValid()) return true;
 
+            cart.ValidationResult.Errors.ToList().ForEach(e => AddProcessingError(e.ErrorMessage));
+            return false;
+        }
     }
 }

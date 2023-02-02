@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +13,7 @@ namespace ESE.Cart.API.Models
         public Guid ClientId { get; set; }
         public decimal TotalPrice { get; set; }
         public List<CartItem> Items { get; set; } = new List<CartItem>();
+        public ValidationResult ValidationResult { get; set; }
 
         public CartClient(Guid clientId)
         {
@@ -36,8 +39,6 @@ namespace ESE.Cart.API.Models
 
         internal void AddItem(CartItem item)
         {
-            if (!item.IsValid()) return;
-
             item.linkCart(Id);
 
             if (ItemExistsCart(item))
@@ -77,6 +78,33 @@ namespace ESE.Cart.API.Models
         {
             Items.Remove(GetProdutById(item.ProductId));
             CalculateTotalValueCart();
+        }
+
+        internal bool IsValid()
+        {
+            var erros = Items.SelectMany(i => new CartItem.CartItemValidation().Validate(i).Errors).ToList();
+            erros.AddRange(new CartClientValidation().Validate(this).Errors);
+            ValidationResult = new ValidationResult(erros);
+
+            return ValidationResult.IsValid;
+        }
+
+        public class CartClientValidation : AbstractValidator<CartClient>
+        {
+            public CartClientValidation()
+            {
+                RuleFor(c => c.ClientId)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("Cliente não reconhecido");
+
+                RuleFor(c => c.Items.Count)
+                    .GreaterThan(0)
+                    .WithMessage("O carrinho não possui itens");
+
+                RuleFor(c => c.TotalPrice)
+                    .GreaterThan(0)
+                    .WithMessage("O valor total do carrinho precisa ser maior que 0");
+            }
         }
 
     }
