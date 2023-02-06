@@ -1,4 +1,5 @@
 ﻿using ESE.WebApp.MVC.Extensions;
+using ESE.WebApp.MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,11 @@ namespace ESE.WebApp.MVC.Services
 
             response.EnsureSuccessStatusCode();
             return true;
+        }
+
+        protected ResponseResult ReturnOk()
+        {
+            return new ResponseResult();
         }
     }
 }
