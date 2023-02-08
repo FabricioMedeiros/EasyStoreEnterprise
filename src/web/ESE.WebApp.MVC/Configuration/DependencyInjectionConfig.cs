@@ -18,22 +18,35 @@ namespace ESE.WebApp.MVC.Configuration
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<AspNetUser, AspNetUser>();
+
+            #region HttpServices
 
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAuthService, AuthService>();
+            services.AddHttpClient<IAuthService, AuthService>().
+                     AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                     .AddPolicyHandler(PollyExtensions.WaitTry())
+                     .AddTransientHttpErrorPolicy(
+                          p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<ICatalogService, CatalogService>().
                      AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
                      .AddPolicyHandler(PollyExtensions.WaitTry())
                      .AddTransientHttpErrorPolicy(
-                          p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30))); ;
+                          p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<AspNetUser, AspNetUser>();
+            services.AddHttpClient<ICartService, CartService>().
+                    AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                    .AddPolicyHandler(PollyExtensions.WaitTry())
+                    .AddTransientHttpErrorPolicy(
+                         p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+
+            #endregion
         }
     }
-
+    #region
     public class PollyExtensions
     {
         public static AsyncRetryPolicy<HttpResponseMessage> WaitTry()
@@ -55,4 +68,5 @@ namespace ESE.WebApp.MVC.Configuration
             return retry;
         }
     }
-} 
+    #endregion
+}
