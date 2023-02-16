@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ESE.WebApp.MVC.Services
 {
-    interface ICartService
+    public interface ICartService
     {
         Task<CartViewModel> GetCart();
         Task<ResponseResult> AddItemCart(ItemProductViewModel product);
