@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace ESE.WebAPI.Core.Authentication
@@ -42,6 +43,7 @@ namespace ESE.WebAPI.Core.Authentication
 
         public static void UseAuthConfiguration(this IApplicationBuilder app)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseAuthentication();
             app.UseAuthorization();
         }
