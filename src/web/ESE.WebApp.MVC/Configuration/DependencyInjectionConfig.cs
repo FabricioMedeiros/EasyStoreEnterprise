@@ -1,4 +1,5 @@
 ﻿using ESE.WebAPI.Core.User;
+using ESE.WebApp.MVC.Extensions;
 using ESE.WebApp.MVC.Services;
 using ESE.WebApp.MVC.Services.Handlers;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +10,6 @@ using Polly.Extensions.Http;
 using Polly.Retry;
 using System;
 using System.Net.Http;
-using static ESE.WebApp.MVC.Extensions.CpfAnnotation;
 
 namespace ESE.WebApp.MVC.Configuration
 {
@@ -19,7 +19,7 @@ namespace ESE.WebApp.MVC.Configuration
         {
             services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<AspNetUser, AspNetUser>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
             #region HttpServices
 
@@ -46,7 +46,8 @@ namespace ESE.WebApp.MVC.Configuration
             #endregion
         }
     }
-    #region
+
+    #region PollyExtensions
     public class PollyExtensions
     {
         public static AsyncRetryPolicy<HttpResponseMessage> WaitTry()
