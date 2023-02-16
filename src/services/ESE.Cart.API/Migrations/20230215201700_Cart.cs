@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ESE.Cart.API.Migrations
 {
-    public partial class CartMigration : Migration
+    public partial class Cart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,7 @@ namespace ESE.Cart.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItens",
+                name: "CartItems",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -34,9 +34,9 @@ namespace ESE.Cart.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItens", x => x.Id);
+                    table.PrimaryKey("PK_CartItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartItens_CartClients_CartId",
+                        name: "FK_CartItems_CartClients_CartId",
                         column: x => x.CartId,
                         principalTable: "CartClients",
                         principalColumn: "Id",
@@ -49,15 +49,15 @@ namespace ESE.Cart.API.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItens_CartId",
-                table: "CartItens",
+                name: "IX_CartItems_CartId",
+                table: "CartItems",
                 column: "CartId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CartItens");
+                name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "CartClients");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESE.Cart.API.Migrations
 {
     [DbContext(typeof(CartDbContext))]
-    [Migration("20230119180206_CartMigration")]
-    partial class CartMigration
+    [Migration("20230215201700_Cart")]
+    partial class Cart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,7 +69,7 @@ namespace ESE.Cart.API.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItens");
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ESE.Cart.API.Models.CartItem", b =>

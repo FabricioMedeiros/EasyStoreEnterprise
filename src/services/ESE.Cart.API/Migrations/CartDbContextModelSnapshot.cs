@@ -67,7 +67,7 @@ namespace ESE.Cart.API.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItens");
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ESE.Cart.API.Models.CartItem", b =>
