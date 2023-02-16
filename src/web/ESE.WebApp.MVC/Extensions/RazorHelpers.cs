@@ -29,5 +29,18 @@ namespace ESE.WebApp.MVC.Extensions
         {
             return stock > 0 ? $"Apenas {stock} em estoque!" : "Produto esgotado!";
         }
+
+        public static string SelectOptionsQuantity(this RazorPage page, int quantity, int value = 0)
+        {
+            var sb = new StringBuilder();
+            for (var i = 1; i <= quantity; i++)
+            {
+                var selected = "";
+                if (i == value) selected = "selected";
+                sb.Append($"<option {selected} value='{i}'>{i}</option>");
+            }
+
+            return sb.ToString();
+        }
     }
 }
