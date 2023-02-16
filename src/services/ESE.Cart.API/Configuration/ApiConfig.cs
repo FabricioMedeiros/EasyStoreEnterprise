@@ -20,7 +20,7 @@ namespace ESE.Cart.API.Configuration
 
             services.AddCors(options =>
             {
-                options.AddPolicy("Total",
+                options.AddPolicy("Full",
                     builder =>
                         builder
                             .AllowAnyOrigin()
@@ -40,7 +40,7 @@ namespace ESE.Cart.API.Configuration
 
             app.UseRouting();
 
-            app.UseCors("Total");
+            app.UseCors("Full");
 
             app.UseAuthConfiguration();
 
