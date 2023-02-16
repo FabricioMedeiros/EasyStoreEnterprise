@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using ESE.WebApp.MVC.Extensions;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using static ESE.WebApp.MVC.Extensions.CpfAnnotation;
 
 namespace ESE.WebApp.MVC.Models
 {
