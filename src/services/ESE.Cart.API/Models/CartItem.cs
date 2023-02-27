@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using System.Text.Json.Serialization;
 
 namespace ESE.Cart.API.Models
 {
@@ -11,7 +12,9 @@ namespace ESE.Cart.API.Models
         public string Name { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public string Image { get; set; }        
+        public string Image { get; set; }     
+        
+        [JsonIgnore]
         public CartClient CartClient { get; set; }
 
         public CartItem()
