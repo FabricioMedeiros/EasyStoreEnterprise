@@ -2,6 +2,7 @@
 using ESE.Cart.API.Models;
 using ESE.WebAPI.Core.Controllers;
 using ESE.WebAPI.Core.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ESE.Cart.API.Controllers
 {
+    [Authorize]
     public class CartController : MainController
     {
         private readonly IAspNetUser _user;
@@ -36,8 +38,6 @@ namespace ESE.Cart.API.Controllers
                CreateCart(item);
             else
                UpdateCart(cart, item);
-
-            ValidateCart(cart);
              
             if (HasError()) return CustomResponse();
 
@@ -67,7 +67,7 @@ namespace ESE.Cart.API.Controllers
             return CustomResponse();
         }
 
-        [HttpDelete("carrinho/{produtoId}")]
+        [HttpDelete("cart/{productId}")]
         public async Task<IActionResult> RemoveCartItem(Guid productId)
         {
             var cart = await GetCartClient();
@@ -98,6 +98,8 @@ namespace ESE.Cart.API.Controllers
             var cart = new CartClient(_user.GetUserId());
             cart.AddItem(item);
 
+            ValidateCart(cart);
+
             _context.CartClients.Add(cart);
         }
         private void UpdateCart(CartClient cart, CartItem item)
@@ -105,6 +107,8 @@ namespace ESE.Cart.API.Controllers
             var productExists = cart.ItemExistsCart(item);
 
             cart.AddItem(item);
+
+            ValidateCart(cart);
 
             if (productExists)
             {
