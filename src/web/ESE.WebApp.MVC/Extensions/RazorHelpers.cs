@@ -30,6 +30,11 @@ namespace ESE.WebApp.MVC.Extensions
             return stock > 0 ? $"Apenas {stock} em estoque!" : "Produto esgotado!";
         }
 
+        public static string UnitsProduct(this RazorPage page, int quantity)
+        {
+            return quantity > 1 ? $"Unidades {quantity}" : $"Unidade {quantity}";
+        }
+
         public static string SelectOptionsQuantity(this RazorPage page, int quantity, int value = 0)
         {
             var sb = new StringBuilder();
