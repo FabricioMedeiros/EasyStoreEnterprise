@@ -1,4 +1,5 @@
-﻿using ESE.WebApp.MVC.Extensions;
+﻿using ESE.Bff.Shopping.Communication;
+using ESE.WebApp.MVC.Extensions;
 using ESE.WebApp.MVC.Models;
 using Microsoft.Extensions.Options;
 using System;

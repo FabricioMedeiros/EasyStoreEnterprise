@@ -1,4 +1,4 @@
-﻿using ESE.WebApp.MVC.Models;
+﻿using ESE.Bff.Shopping.Communication;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
