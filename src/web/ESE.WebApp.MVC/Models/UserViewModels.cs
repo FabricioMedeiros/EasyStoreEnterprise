@@ -1,4 +1,4 @@
-﻿using ESE.Bff.Shopping.Communication;
+﻿using ESE.Core.Communication;
 using ESE.WebApp.MVC.Extensions;
 using System.Collections.Generic;
 using System.ComponentModel;

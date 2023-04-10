@@ -1,9 +1,5 @@
-﻿using ESE.Bff.Shopping.Communication;
+﻿using ESE.Core.Communication;
 using ESE.WebApp.MVC.Extensions;
-using ESE.WebApp.MVC.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;

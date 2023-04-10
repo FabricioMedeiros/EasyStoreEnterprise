@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ESE.Bff.Shopping.Communication;
 using ESE.Bff.Shopping.Extensions;
 using ESE.Bff.Shopping.Models;
+using ESE.Core.Communication;
 using Microsoft.Extensions.Options;
 
 namespace ESE.Bff.Shopping.Services
