@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using ESE.Bff.Shopping.Communication;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -8,7 +9,7 @@ namespace ESE.Bff.Shopping.Services
 {
     public abstract class Service
     {
-        protected StringContent GetContent(object dado)
+        protected StringContent JsonSerialize(object dado)
         {
             return new StringContent(
                 JsonSerializer.Serialize(dado),
@@ -32,6 +33,11 @@ namespace ESE.Bff.Shopping.Services
 
             response.EnsureSuccessStatusCode();
             return true;
+        }
+
+        protected ResponseResult ReturnOk()
+        {
+            return new ResponseResult();
         }
     }
 }
