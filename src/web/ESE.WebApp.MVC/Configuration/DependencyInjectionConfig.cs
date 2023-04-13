@@ -37,7 +37,7 @@ namespace ESE.WebApp.MVC.Configuration
                      .AddTransientHttpErrorPolicy(
                           p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-            services.AddHttpClient<ICartService, CartService>().
+            services.AddHttpClient<IShoppingBffService, ShoppingBffService>().
                     AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
                     .AddPolicyHandler(PollyExtensions.WaitTry())
                     .AddTransientHttpErrorPolicy(
@@ -48,7 +48,7 @@ namespace ESE.WebApp.MVC.Configuration
     }
 
     #region PollyExtensions
-    public class PollyExtensions
+    public static class PollyExtensions
     {
         public static AsyncRetryPolicy<HttpResponseMessage> WaitTry()
         {

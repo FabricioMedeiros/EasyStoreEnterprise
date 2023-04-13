@@ -1,7 +1,10 @@
-﻿using ESE.Bff.Shopping.Services;
+﻿using ESE.Bff.Shopping.Models;
+using ESE.Bff.Shopping.Services;
 using ESE.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ESE.Bff.Shopping.Controllers
@@ -20,38 +23,86 @@ namespace ESE.Bff.Shopping.Controllers
         }
 
         [HttpGet]
-        [Route("shopping/cart")]
+        [Route("/shopping/cart")]
         public async Task<IActionResult> Index()
         {
-            return CustomResponse();
+            return CustomResponse(await _cartService.GetCart());
         }
 
         [HttpGet]
-        [Route("shopping/quantity-cart")]
-        public async Task<IActionResult> GetQuantityCart()
+        [Route("/shopping/cart/quantity-cart")]
+        public async Task<int> GetQuantityCart()
         {
-            return CustomResponse();
+            var quantity = await _cartService.GetCart();
+            return quantity?.Items.Sum(i => i.Quantity) ?? 0;
         }
 
         [HttpPost]
-        [Route("shopping/cart/items")]
-        public async Task<IActionResult> AddItemCart()
+        [Route("/shopping/cart/items")]
+        public async Task<IActionResult> AddItemCart(ItemCartDTO itemProduct)
         {
-            return CustomResponse();
+            var product = await _catalogService.GetById(itemProduct.ProductId);
+
+            await ValidateItemCart(product, itemProduct.Quantity, true);
+           
+            if (HasError()) return CustomResponse();
+
+            itemProduct.Name = product.Name;
+            itemProduct.Price = product.Price;
+            itemProduct.Image = product.Image;
+
+            var response = await _cartService.AddItemCart(itemProduct);
+
+            return CustomResponse(response);
         }
 
         [HttpPut]
-        [Route("shopping/cart/items/{productId}")]
-        public async Task<IActionResult> UpdateItemCart()
+        [Route("/shopping/cart/items/{productId}")]
+        public async Task<IActionResult> UpdateItemCart(Guid productId, ItemCartDTO itemProduct)
         {
-            return CustomResponse();
+            var product = await _catalogService.GetById(productId);
+
+            await ValidateItemCart(product, itemProduct.Quantity);
+            
+            if (HasError()) return CustomResponse();
+
+            var response = await _cartService.UpdateItemCart(productId, itemProduct);
+
+            return CustomResponse(response);
         }
 
         [HttpDelete]
-        [Route("shopping/cart/items/{productId}")]
-        public async Task<IActionResult> DeleteItemCart()
+        [Route("/shopping/cart/items/{productId}")]
+        public async Task<IActionResult> DeleteItemCart(Guid productId)
         {
-            return CustomResponse();
+            var product = await _catalogService.GetById(productId);
+
+            if (product == null)
+            {
+                AddProcessingError("Produto inexistente!");
+                return CustomResponse();
+            }
+
+            var response = await _cartService.RemoveItemCart(productId);
+
+            return CustomResponse(response);
+        }
+
+        private async Task ValidateItemCart(ItemProductDTO product, int quantity, bool addProduct = false)
+        {
+            if (product == null) AddProcessingError("Produto inexistente!");
+            if (quantity < 1) AddProcessingError($"Escolha ao menos uma unidade do produto {product.Name}");
+
+            var carrinho = await _cartService.GetCart();
+            var itemCarrinho = carrinho.Items.FirstOrDefault(p => p.ProductId == product.Id);
+
+            if (itemCarrinho != null && addProduct && itemCarrinho.Quantity + quantity > product.Stock)
+            {
+                AddProcessingError($"O produto {product.Name} possui {product.Stock} unidades em estoque, você selecionou {quantity}");
+                return;
+            }
+
+            if (quantity > product.Stock) AddProcessingError($"O produto {product.Name} possui {product.Stock} unidades em estoque, você selecionou {quantity}");
         }
     }
 }

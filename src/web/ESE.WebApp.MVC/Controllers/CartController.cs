@@ -8,37 +8,26 @@ namespace ESE.WebApp.MVC.Controllers
 {
     public class CartController : MainController
     { 
-        private readonly ICartService _cartService;
-        private readonly ICatalogService _catalogService;
+        private readonly IShoppingBffService _shoppingBffService;
 
-        public CartController(ICartService cartService, ICatalogService catalogService)
+        public CartController(IShoppingBffService shoppingBffService)
         {
-            _cartService = cartService;
-            _catalogService = catalogService;
+            _shoppingBffService = shoppingBffService;
         }
 
         [Route("cart")]
         public async Task<IActionResult> Index()
         {
-            return View(await _cartService.GetCart());
+            return View(await _shoppingBffService.GetCart());
         }
 
         [HttpPost]
         [Route("cart/add-item")]
-        public async Task<IActionResult> AddCartItem(ItemProductViewModel itemProduct)
+        public async Task<IActionResult> AddCartItem(ItemCartViewModel itemProduct)
         {
-            var product = await _catalogService.GetById(itemProduct.ProductId);
+            var response = await _shoppingBffService.AddItemCart(itemProduct);
 
-            ValidateItemCart(product, itemProduct.Quantity);
-            if (!IsValid()) return View("Index", await _cartService.GetCart());
-
-            itemProduct.Name = product.Name;
-            itemProduct.Price = product.Price;
-            itemProduct.Image = product.Image;
-
-            var response = await _cartService.AddItemCart(itemProduct);
-
-            if (HasErrorsResponse(response)) return View("Index", await _cartService.GetCart());
+            if (HasErrorsResponse(response)) return View("Index", await _shoppingBffService.GetCart());
 
             return RedirectToAction("Index");
         }
@@ -47,44 +36,23 @@ namespace ESE.WebApp.MVC.Controllers
         [Route("cart/update-item")]
         public async Task<IActionResult> UpdateItemCart(Guid productId, int quantity)
         {
-            var product = await _catalogService.GetById(productId);
+            var itemProduct = new ItemCartViewModel { ProductId = productId, Quantity = quantity };
+            var response = await _shoppingBffService.UpdateItemCart(productId, itemProduct);
 
-            ValidateItemCart(product, quantity);
-            if (!IsValid()) return View("Index", await _cartService.GetCart());
-
-            var itemProduct = new ItemProductViewModel { ProductId = productId, Quantity = quantity };
-            var response = await _cartService.UpdateItemCart(productId, itemProduct);
-
-            if (HasErrorsResponse(response)) return View("Index", await _cartService.GetCart());
+            if (HasErrorsResponse(response)) return View("Index", await _shoppingBffService.GetCart());
 
             return RedirectToAction("Index");
         }
-
 
         [HttpPost]
         [Route("cart/remove-item")]
         public async Task<IActionResult> RemoveItemCart(Guid productId)
         {
-            var product = await _catalogService.GetById(productId);
+            var response = await _shoppingBffService.RemoveItemCart(productId);
 
-            if (product == null)
-            {
-                AddProcessingError("Produto inexistente!");
-                return View("Index", await _cartService.GetCart());
-            }
-
-            var response = await _cartService.RemoveItemCart(productId);
-
-            if (HasErrorsResponse(response)) return View("Index", await _cartService.GetCart());
+            if (HasErrorsResponse(response)) return View("Index", await _shoppingBffService.GetCart());
 
             return RedirectToAction("Index");
-        }
-
-        private void ValidateItemCart(ProductViewModel product, int quantity)
-        {
-            if (product == null) AddProcessingError("Produto inexistente!");
-            if (quantity < 1) AddProcessingError($"Escolha ao menos uma unidade do produto {product.Name}");
-            if (quantity > product.Stock) AddProcessingError($"O produto {product.Name} possui {product.Stock} unidades em estoque, você selecionou {quantity}");
         }
     }
 }
