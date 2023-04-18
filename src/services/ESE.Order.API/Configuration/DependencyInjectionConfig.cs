@@ -1,4 +1,5 @@
-﻿using ESE.WebAPI.Core.User;
+﻿using ESE.Core.Mediator;
+using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,6 +16,10 @@ namespace ESE.Order.API.Configuration
             // API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
+
+            // Application
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
+
         }
     }
 }
