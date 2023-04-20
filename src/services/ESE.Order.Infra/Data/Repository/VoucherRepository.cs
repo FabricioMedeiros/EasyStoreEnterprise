@@ -1,9 +1,6 @@
 ﻿using ESE.Core.Data;
 using ESE.Order.Domain.Vouchers;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ESE.Order.Infra.Data.Repository
@@ -19,7 +16,7 @@ namespace ESE.Order.Infra.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<Voucher> GetVoucherById(string code)
+        public async Task<Voucher> GetVoucherByCode(string code)
         {
             return await _context.Vouchers.FirstOrDefaultAsync(p => p.Code == code);
         }
