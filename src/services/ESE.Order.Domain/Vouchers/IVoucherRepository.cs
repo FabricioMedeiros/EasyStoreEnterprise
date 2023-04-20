@@ -8,6 +8,6 @@ namespace ESE.Order.Domain.Vouchers
 {
     public interface IVoucherRepository : IRepository<Voucher>
     {
-        Task<Voucher> GetVoucherById(string code);
+        Task<Voucher> GetVoucherByCode(string code);
     }
 }
