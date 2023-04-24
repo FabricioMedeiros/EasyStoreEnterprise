@@ -1,4 +1,7 @@
 ﻿using ESE.Core.Mediator;
+using ESE.Order.Domain.Vouchers;
+using ESE.Order.Infra.Data;
+using ESE.Order.Infra.Data.Repository;
 using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +23,9 @@ namespace ESE.Order.API.Configuration
             // Application
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
+            // Data
+            services.AddScoped<IVoucherRepository, VoucherRepository>();
+            services.AddScoped<OrderDbContext>();
         }
     }
 }
