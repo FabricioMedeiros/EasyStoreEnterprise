@@ -14,6 +14,7 @@ namespace ESE.Bff.Shopping.Services
         Task<ResponseResult> AddItemCart(ItemCartDTO product);
         Task<ResponseResult> UpdateItemCart(Guid productId, ItemCartDTO product);
         Task<ResponseResult> RemoveItemCart(Guid productId);
+        Task<ResponseResult> ApplyVoucherCart(VoucherDTO voucher);
     }
 
     public class CartService : Service, ICartService
@@ -66,6 +67,15 @@ namespace ESE.Bff.Shopping.Services
             return ReturnOk();
         }
 
-        
+        public async Task<ResponseResult> ApplyVoucherCart(VoucherDTO voucher)
+        {
+            var itemContent = JsonSerialize(voucher);
+
+            var response = await _httpClient.PostAsync("/cart/apply-voucher/", itemContent);
+
+            if (!CheckErrorsResponse(response)) return await DeserializeObjectResponse<ResponseResult>(response);
+
+            return ReturnOk();
+        }
     }
 }
