@@ -87,6 +87,20 @@ namespace ESE.Cart.API.Controllers
             return CustomResponse();
         }
 
+        [HttpPost]
+        [Route("cart/apply-voucher")]
+        public async Task<IActionResult> ApplyVoucher(Voucher voucher)
+        {
+            var cart = await GetCartClient();
+
+            cart.ApplyVoucher(voucher);
+
+            _context.CartClients.Update(cart);
+
+            await SaveData();
+            return CustomResponse();
+        }
+
         private async Task<CartClient> GetCartClient()
         {
             return await _context.CartClients
