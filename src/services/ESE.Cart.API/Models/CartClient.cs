@@ -14,6 +14,9 @@ namespace ESE.Cart.API.Models
         public decimal TotalPrice { get; set; }
         public List<CartItem> Items { get; set; } = new List<CartItem>();
         public ValidationResult ValidationResult { get; set; }
+        public bool VoucherUsed { get; set; }
+        public decimal Discount { get; set; }
+        public Voucher Voucher { get; set; }
 
         public CartClient(Guid clientId)
         {
@@ -23,9 +26,45 @@ namespace ESE.Cart.API.Models
 
         public CartClient() { }
 
+        public void ApplyVoucher(Voucher voucher)
+        {
+            Voucher = voucher;
+            VoucherUsed = true;
+            CalculateTotalValueCart();
+        }
+
         internal void CalculateTotalValueCart()
         {
             TotalPrice = Items.Sum(p => p.CalculateValue());
+            CalculateTotalDiscount();
+        }
+
+        private void CalculateTotalDiscount()
+        {
+            if (!VoucherUsed) return;
+
+            decimal discount = 0;
+            var value = TotalPrice;
+
+            if (Voucher.TypeDiscount == TypeDiscountVoucher.Percentage)
+            {
+                if (Voucher.Percent.HasValue)
+                {
+                    discount = (value * Voucher.Percent.Value) / 100;
+                    value -= discount;
+                }
+            }
+            else
+            {
+                if (Voucher.DiscountValue.HasValue)
+                {
+                    discount = Voucher.DiscountValue.Value;
+                    value -= discount;
+                }
+            }
+
+            TotalPrice = value < 0 ? 0 : value;
+            Discount = discount;
         }
 
         internal bool ItemExistsCart(CartItem item)
