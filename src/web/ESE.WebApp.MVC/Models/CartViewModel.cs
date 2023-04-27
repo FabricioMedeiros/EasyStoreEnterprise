@@ -6,6 +6,11 @@ namespace ESE.WebApp.MVC.Models
     public class CartViewModel
     {
         public decimal TotalPrice { get; set; }
+
+        public VoucherViewModel Voucher { get; set; }
+        public bool VoucherUsed { get; set; }
+
+        public decimal Discount { get; set; }
         public List<ItemCartViewModel> Items { get; set; } = new List<ItemCartViewModel>();
     }
 

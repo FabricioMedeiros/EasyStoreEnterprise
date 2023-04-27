@@ -17,6 +17,8 @@ namespace ESE.WebApp.MVC.Services
         Task<ResponseResult> AddItemCart(ItemCartViewModel product);
         Task<ResponseResult> UpdateItemCart(Guid productId, ItemCartViewModel product);
         Task<ResponseResult> RemoveItemCart(Guid productId);
+
+        Task<ResponseResult> ApplyVoucherCart(string voucher);
     }
     public class ShoppingBffService : Service, IShoppingBffService
     {
@@ -70,6 +72,17 @@ namespace ESE.WebApp.MVC.Services
         public async Task<ResponseResult> RemoveItemCart(Guid productId)
         {
             var response = await _httpClient.DeleteAsync($"/shopping/cart/items/{productId}");
+
+            if (!CheckErrorsResponse(response)) return await DeserializeObjectResponse<ResponseResult>(response);
+
+            return ReturnOk();
+        }
+
+        public async Task<ResponseResult> ApplyVoucherCart(string voucher)
+        {
+            var itemContent = JsonSerialize(voucher);
+
+            var response = await _httpClient.PostAsync("/shopping/cart/apply-voucher/", itemContent);
 
             if (!CheckErrorsResponse(response)) return await DeserializeObjectResponse<ResponseResult>(response);
 

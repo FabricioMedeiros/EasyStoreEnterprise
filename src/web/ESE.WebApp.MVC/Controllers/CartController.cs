@@ -54,5 +54,16 @@ namespace ESE.WebApp.MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Route("cart/apply-voucher")]
+        public async Task<IActionResult> ApplyVoucher(string voucherCode)
+        {
+            var response = await _shoppingBffService.ApplyVoucherCart(voucherCode);
+
+            if (HasErrorsResponse(response)) return View("Index", await _shoppingBffService.GetCart());
+
+            return RedirectToAction("Index");
+        }
     }
 }
