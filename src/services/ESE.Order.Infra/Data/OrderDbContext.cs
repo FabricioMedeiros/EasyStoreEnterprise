@@ -2,9 +2,11 @@
 using ESE.Core.DomainObjects;
 using ESE.Core.Mediator;
 using ESE.Core.Messages;
+using ESE.Orders.Domain.Orders;
 using ESE.Orders.Domain.Vouchers;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +21,8 @@ namespace ESE.Orders.Infra.Data
             _mediatorHandler = mediatorHandler;
         }
 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,12 +38,30 @@ namespace ESE.Orders.Infra.Data
                 .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderDbContext).Assembly);
+
+            modelBuilder.HasSequence<int>("MySequence").StartsAt(1).IncrementsBy(1);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public async Task<bool> Commit()
         {
+            foreach (var entry in ChangeTracker.Entries()
+                .Where(entry => entry.Entity.GetType().GetProperty("CreationDate") != null))
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Property("CreationDate").CurrentValue = DateTime.Now;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Property("CreationDate").IsModified = false;
+                }
+            }
+
             var sucess = await base.SaveChangesAsync() > 0;
-            if (sucess) await _mediatorHandler.PublicarEventos(this);
+            if (sucess) await _mediatorHandler.PublishEvents(this);
 
             return sucess;
         }
@@ -47,7 +69,7 @@ namespace ESE.Orders.Infra.Data
 
     public static class MediatorExtension
     {
-        public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
+        public static async Task PublishEvents<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()
