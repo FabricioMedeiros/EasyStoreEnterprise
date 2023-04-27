@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ESE.Order.Domain.Vouchers
+namespace ESE.Orders.Domain.Vouchers
 {
     public interface IVoucherRepository : IRepository<Voucher>
     {

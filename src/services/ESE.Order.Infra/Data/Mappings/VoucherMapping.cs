@@ -1,8 +1,8 @@
-﻿using ESE.Order.Domain.Vouchers;
+﻿using ESE.Orders.Domain.Vouchers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ESE.Order.Infra.Data.Mappings
+namespace ESE.Orders.Infra.Data.Mappings
 {
     class VoucherMapping : IEntityTypeConfiguration<Voucher>
     {

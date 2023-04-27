@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 
-namespace ESE.Order.API.Configuration
+namespace ESE.Orders.API.Configuration
 {
     public static class SwaggerConfig
     {

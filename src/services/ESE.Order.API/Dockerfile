@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["src/services/ESE.Order.API/ESE.Order.API.csproj", "src/services/ESE.Order.API/"]
-RUN dotnet restore "src/services/ESE.Order.API/ESE.Order.API.csproj"
+COPY ["src/services/ESE.Orders.API/ESE.Orders.API.csproj", "src/services/ESE.Orders.API/"]
+RUN dotnet restore "src/services/ESE.Orders.API/ESE.Orders.API.csproj"
 COPY . .
-WORKDIR "/src/src/services/ESE.Order.API"
-RUN dotnet build "ESE.Order.API.csproj" -c Release -o /app/build
+WORKDIR "/src/src/services/ESE.Orders.API"
+RUN dotnet build "ESE.Orders.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ESE.Order.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "ESE.Orders.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ESE.Order.API.dll"]
+ENTRYPOINT ["dotnet", "ESE.Orders.API.dll"]

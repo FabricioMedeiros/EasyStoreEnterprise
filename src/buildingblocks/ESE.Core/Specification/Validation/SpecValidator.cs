@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace ESE.Core.Specification
+namespace ESE.Core.Specification.Validation
 {
     public class SpecValidator<T>
     {

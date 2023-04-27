@@ -1,9 +1,9 @@
 ﻿using ESE.Core.Data;
-using ESE.Order.Domain.Vouchers;
+using ESE.Orders.Domain.Vouchers;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace ESE.Order.Infra.Data.Repository
+namespace ESE.Orders.Infra.Data.Repository
 {
     public class VoucherRepository : IVoucherRepository
     {

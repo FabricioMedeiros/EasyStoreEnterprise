@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ESE.Bff.Shopping.Configuration.Configuration
+namespace ESE.Bff.Shopping.Configuration
 {
     public static class MessageBusConfig
     {

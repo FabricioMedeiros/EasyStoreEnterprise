@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ESE.Order.Domain.Vouchers
+namespace ESE.Orders.Domain.Vouchers
 {
     public enum VoucherDiscountType
     {

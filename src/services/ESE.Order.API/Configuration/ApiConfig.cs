@@ -1,4 +1,4 @@
-﻿using ESE.Order.Infra.Data;
+﻿using ESE.Orders.Infra.Data;
 using ESE.WebAPI.Core.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ESE.Order.API.Configuration
+namespace ESE.Orders.API.Configuration
 {
     public static class ApiConfig
     {

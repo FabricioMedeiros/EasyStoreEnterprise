@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ESE.Order.Domain.Orders
+namespace ESE.Orders.Domain.Orders
 {
     interface IOrderRepository
     {

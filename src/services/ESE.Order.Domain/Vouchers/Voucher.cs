@@ -1,10 +1,8 @@
 ﻿using ESE.Core.DomainObjects;
-using ESE.Order.Domain.Vouchers.Specs;
+using ESE.Orders.Domain.Vouchers.Specs;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ESE.Order.Domain.Vouchers
+namespace ESE.Orders.Domain.Vouchers
 {
     public class Voucher : Entity, IAggregateRoot
     {

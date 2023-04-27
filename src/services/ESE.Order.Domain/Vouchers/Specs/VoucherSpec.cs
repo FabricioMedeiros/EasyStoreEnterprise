@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace ESE.Order.Domain.Vouchers.Specs
+namespace ESE.Orders.Domain.Vouchers.Specs
 {
     public class VoucherDateSpecification : Specification<Voucher>
     {

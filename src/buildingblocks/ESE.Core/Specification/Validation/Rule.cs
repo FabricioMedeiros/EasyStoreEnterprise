@@ -1,4 +1,4 @@
-﻿namespace ESE.Core.Specification
+﻿namespace ESE.Core.Specification.Validation
 {
     public class Rule<T>
     {

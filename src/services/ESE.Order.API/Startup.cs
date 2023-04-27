@@ -1,4 +1,4 @@
-using ESE.Order.API.Configuration;
+using ESE.Orders.API.Configuration;
 using ESE.WebAPI.Core.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ESE.Order.API
+namespace ESE.Orders.API
 {
     public class Startup
     {

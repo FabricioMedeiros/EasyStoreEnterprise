@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ESE.Order.Domain.Orders
+namespace ESE.Orders.Domain.Orders
 {
     public class Address
     {

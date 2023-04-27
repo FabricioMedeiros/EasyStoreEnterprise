@@ -1,16 +1,12 @@
 ﻿using ESE.Core.Mediator;
-using ESE.Order.Domain.Vouchers;
-using ESE.Order.Infra.Data;
-using ESE.Order.Infra.Data.Repository;
+using ESE.Orders.Domain.Vouchers;
+using ESE.Orders.Infra.Data;
+using ESE.Orders.Infra.Data.Repository;
 using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ESE.Order.API.Configuration
+namespace ESE.Orders.API.Configuration
 {
     public static class DependencyInjectionConfig
     {

@@ -1,8 +1,9 @@
-﻿using ESE.Order.API.Application.DTO;
-using ESE.Order.Domain.Vouchers;
+﻿
+using ESE.Orders.API.Application.DTO;
+using ESE.Orders.Domain.Vouchers;
 using System.Threading.Tasks;
 
-namespace ESE.Order.API.Application.Queries
+namespace ESE.Orders.API.Application.Queries
 {
     public interface IVoucherQueries
     {

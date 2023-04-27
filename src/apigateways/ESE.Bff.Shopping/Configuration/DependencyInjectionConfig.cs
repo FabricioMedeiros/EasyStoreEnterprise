@@ -7,7 +7,7 @@ using ESE.WebAPI.Core.Extensions;
 using Polly;
 using System;
 
-namespace ESE.Bff.Shopping.Configuration.Configuration
+namespace ESE.Bff.Shopping.Configuration
 {
     public static class DependencyInjectionConfig
     {

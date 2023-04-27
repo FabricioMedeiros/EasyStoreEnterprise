@@ -1,11 +1,10 @@
 ﻿using ESE.Core.DomainObjects;
-using ESE.Order.Domain.Vouchers;
+using ESE.Orders.Domain.Vouchers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace ESE.Order.Domain.Orders
+namespace ESE.Orders.Domain.Orders
 {
     public class Order : Entity, IAggregateRoot
     {

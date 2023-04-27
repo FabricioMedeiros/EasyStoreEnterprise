@@ -1,10 +1,6 @@
-﻿using ESE.Order.Domain.Vouchers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ESE.Orders.Domain.Vouchers;
 
-namespace ESE.Order.API.Application.DTO
+namespace ESE.Orders.API.Application.DTO
 {
     public class VoucherDTO
     {

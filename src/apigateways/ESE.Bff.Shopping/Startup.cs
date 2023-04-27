@@ -1,5 +1,4 @@
 using ESE.Bff.Shopping.Configuration;
-using ESE.Bff.Shopping.Configuration.Configuration;
 using ESE.WebAPI.Core.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

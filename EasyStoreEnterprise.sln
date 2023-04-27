@@ -64,11 +64,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Bff.Shopping", "src\api
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{67041916-B70F-453E-8325-8D2A1531BF3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESE.Order.API", "src\services\ESE.Order.API\ESE.Order.API.csproj", "{D761FBD3-D853-4006-AE05-6ED63A16E5DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Orders.API", "src\services\ESE.Order.API\ESE.Orders.API.csproj", "{D761FBD3-D853-4006-AE05-6ED63A16E5DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESE.Order.Domain", "src\services\ESE.Order.Domain\ESE.Order.Domain.csproj", "{1AB4EADA-33CE-4B10-8C7E-50B43C5B148A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Orders.Domain", "src\services\ESE.Order.Domain\ESE.Orders.Domain.csproj", "{1AB4EADA-33CE-4B10-8C7E-50B43C5B148A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESE.Order.Infra", "src\services\ESE.Order.Infra\ESE.Order.Infra.csproj", "{910D4485-AC0A-46DC-A0E3-864215D9ABA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESE.Orders.Infra", "src\services\ESE.Order.Infra\ESE.Orders.Infra.csproj", "{910D4485-AC0A-46DC-A0E3-864215D9ABA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

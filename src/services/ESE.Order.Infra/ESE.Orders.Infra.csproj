@@ -1,10 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>0f4544e7-c51c-4f9e-aaeb-2c0d8db899eb</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,19 +12,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.28" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.28" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.28" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\Events\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\..\buildingblocks\ESE.Core\ESE.Core.csproj" />
+    <ProjectReference Include="..\ESE.Order.Domain\ESE.Orders.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\buildingblocks\ESE.WebAPI.Core\ESE.WebAPI.Core.csproj" />
-    <ProjectReference Include="..\ESE.Order.Infra\ESE.Order.Infra.csproj" />
-  </ItemGroup>
-
 
 </Project>

@@ -2,13 +2,13 @@
 using ESE.Core.DomainObjects;
 using ESE.Core.Mediator;
 using ESE.Core.Messages;
-using ESE.Order.Domain.Vouchers;
+using ESE.Orders.Domain.Vouchers;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ESE.Order.Infra.Data
+namespace ESE.Orders.Infra.Data
 {
     public class OrderDbContext : DbContext, IUnitOfWork
     {

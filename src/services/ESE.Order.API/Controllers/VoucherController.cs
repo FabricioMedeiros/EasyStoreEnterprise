@@ -1,12 +1,12 @@
-﻿using ESE.Order.API.Application.DTO;
-using ESE.Order.API.Application.Queries;
+﻿using ESE.Orders.API.Application.DTO;
+using ESE.Orders.API.Application.Queries;
 using ESE.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace ESE.Order.API.Controllers
+namespace ESE.Orders.API.Controllers
 {
     [Authorize]
     public class VoucherController : MainController
