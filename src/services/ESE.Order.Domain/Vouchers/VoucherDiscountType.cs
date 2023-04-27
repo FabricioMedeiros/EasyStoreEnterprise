@@ -6,7 +6,7 @@ namespace ESE.Order.Domain.Vouchers
 {
     public enum VoucherDiscountType
     {
-        PercentPercentage = 0,
+        Percentage = 0,
         Value = 1
     }
 }
