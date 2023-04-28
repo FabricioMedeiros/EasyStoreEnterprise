@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ESE.Orders.Domain.Orders
 {
-    interface IOrderRepository
+    public interface IOrderRepository
     {
         /* Pedido */
         Task<Order> GetById(Guid id);
-        Task<IEnumerable<Order>> GestListByClientId(Guid clientId);
+        Task<IEnumerable<Order>> GetListByClientId(Guid clientId);
         void Add(Order order);
         void Update(Order order);
 
