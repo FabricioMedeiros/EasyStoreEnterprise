@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ESE.Core.DomainObjects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ESE.Orders.Domain.Orders
 {
-    public class OrderItem
+    public class OrderItem : Entity
     {
         public Guid OrderId { get; private set; }
         public Guid ProductId { get; private set; }
