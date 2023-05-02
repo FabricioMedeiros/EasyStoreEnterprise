@@ -17,9 +17,8 @@ namespace ESE.Orders.Domain.Orders
         // EF Rel.
         public Order Order { get; set; }
 
-        public OrderItem(Guid orderId, Guid productId, string productName, int quantity, decimal price, string image = null)
+        public OrderItem(Guid productId, string productName, int quantity, decimal price, string image = null)
         {
-            OrderId = orderId;
             ProductId = productId;
             ProductName = productName;
             Quantity = quantity;
