@@ -25,5 +25,10 @@ namespace ESE.Orders.Infra.Data.Repository
         {
             _context.Dispose();
         }
+
+        public void Update(Voucher voucher)
+        {
+            _context.Vouchers.Update(voucher);
+        }
     }
 }

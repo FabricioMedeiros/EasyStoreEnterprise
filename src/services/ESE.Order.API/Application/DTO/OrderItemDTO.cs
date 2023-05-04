@@ -12,7 +12,7 @@ namespace ESE.Orders.API.Application.DTO
         public string Image { get; set; }
         public int Quantity { get; set; }
 
-        public static OrderItem ToPedidoItem(OrderItemDTO orderItemDTO)
+        public static OrderItem ToOrderItem(OrderItemDTO orderItemDTO)
         {
             return new OrderItem(
                 orderItemDTO.ProductId,

@@ -18,7 +18,6 @@ namespace ESE.Orders.Infra.Data.Repository
         {
             _context = context;
         }
-
         public IUnitOfWork UnitOfWork => _context;
 
         public DbConnection GetConnection() => _context.Database.GetDbConnection();
