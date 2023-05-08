@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="dapper" Version="2.0.123" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.28" />
@@ -19,12 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\..\buildingblocks\ESE.MessageBus\ESE.MessageBus.csproj" />
+    <ProjectReference Include="..\..\buildingblocks\ESE.WebAPI.Core\ESE.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\ESE.Order.Infra\ESE.Orders.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\buildingblocks\ESE.WebAPI.Core\ESE.WebAPI.Core.csproj" />
-    <ProjectReference Include="..\ESE.Order.Infra\ESE.Orders.Infra.csproj" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 
