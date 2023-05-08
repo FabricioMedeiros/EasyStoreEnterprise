@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\buildingblocks\ESE.MessageBus\ESE.MessageBus.csproj" />
     <ProjectReference Include="..\..\buildingblocks\ESE.WebAPI.Core\ESE.WebAPI.Core.csproj" />
   </ItemGroup>
 
