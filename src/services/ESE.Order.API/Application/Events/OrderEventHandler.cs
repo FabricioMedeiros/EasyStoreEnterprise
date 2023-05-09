@@ -1,14 +1,12 @@
 ﻿using ESE.Core.Messages.Integration;
 using ESE.MessageBus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ESE.Orders.API.Application.Events
 {
-    public class OrderEventHandler
+    public class OrderEventHandler : INotificationHandler<OrderRegisteredEvent>
     {
         private readonly IMessageBus _bus;
 
