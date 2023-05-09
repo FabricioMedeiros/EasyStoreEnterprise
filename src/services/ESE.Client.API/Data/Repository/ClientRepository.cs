@@ -1,6 +1,7 @@
 ﻿using ESE.Clients.API.Models;
 using ESE.Core.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,6 +31,16 @@ namespace ESE.Clients.API.Data.Repository
         public void Add(Client client)
         {
             _context.Clients.Add(client);
+        }
+
+        public async Task<Address> GetAddressById(Guid id)
+        {
+            return await _context.Addresses.FirstOrDefaultAsync(e => e.ClientId == id);
+        }
+
+        public void AddAddress(Address address)
+        {
+            _context.Addresses.Add(address);
         }
 
         public void Dispose()

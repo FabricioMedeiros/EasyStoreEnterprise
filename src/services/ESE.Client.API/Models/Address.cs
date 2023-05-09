@@ -18,7 +18,7 @@ namespace ESE.Clients.API.Models
         // EF Relation
         public Client Client { get; protected set; }
 
-        public Address(string street, string number, string complement, string neighborhood, string city, string state, string zipCode)
+        public Address(string street, string number, string complement, string neighborhood, string city, string state, string zipCode, Guid clientId)
         {
             Street = street;
             Number = number;
@@ -26,6 +26,7 @@ namespace ESE.Clients.API.Models
             Neighborhood = neighborhood;
             City = city;
             State = state;
+            ClientId = clientId;
         }
     }
 }

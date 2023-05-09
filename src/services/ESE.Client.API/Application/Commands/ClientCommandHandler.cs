@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ESE.Clients.API.Application.Commands
 {
-    public class ClientCommandHandler : CommandHandler, IRequestHandler<RegisterClientCommand, ValidationResult>
+    public class ClientCommandHandler : CommandHandler, IRequestHandler<RegisterClientCommand, ValidationResult>,
+        IRequestHandler<AddAddressCommand, ValidationResult>
     {
         private readonly IClientRepository _clientRepository;
 
@@ -33,6 +34,16 @@ namespace ESE.Clients.API.Application.Commands
             _clientRepository.Add(client);
 
             client.AddEvent(new ClientRegisteredEvent(message.Id, message.Name, message.Email, message.Cpf));
+
+            return await SaveData(_clientRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AddAddressCommand message, CancellationToken cancellationToken)
+        {
+            if (!message.IsValid()) return message.ValidationResult;
+
+            var address = new Address(message.Street, message.Number, message.Complement, message.Neighborhood, message.City, message.State, message.ZipCode, message.ClientId);
+            _clientRepository.AddAddress(address);
 
             return await SaveData(_clientRepository.UnitOfWork);
         }

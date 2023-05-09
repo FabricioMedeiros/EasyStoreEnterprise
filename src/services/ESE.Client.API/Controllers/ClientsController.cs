@@ -1,6 +1,8 @@
 ﻿using ESE.Clients.API.Application.Commands;
+using ESE.Clients.API.Models;
 using ESE.Core.Mediator;
 using ESE.WebAPI.Core.Controllers;
+using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -9,20 +11,30 @@ namespace ESE.Clients.API.Controllers
 {
     public class ClientsController : MainController
     {
-        private readonly IMediatorHandler _mediatorHandler;
+        private readonly IClientRepository _clientRepository;
+        private readonly IMediatorHandler _mediator;
+        private readonly IAspNetUser _user;
 
-        public ClientsController(IMediatorHandler mediatorHandler)
+        public ClientsController(IClientRepository clientRepository, IMediatorHandler mediator, IAspNetUser user)
         {
-            _mediatorHandler = mediatorHandler;
+            _clientRepository = clientRepository;
+            _mediator = mediator;
+            _user = user;
         }
 
-        [HttpGet("clients")]
-        public async Task<IActionResult> IndexAsync()
+        [HttpGet("client/address")]
+        public async Task<IActionResult> GetAddress()
         {
-            var result = await _mediatorHandler.SendCommand(
-                 new RegisterClientCommand(Guid.NewGuid(), "Fabricio - Teste", "fa@yahoo.com.br", "30314299076"));
+            var address = await _clientRepository.GetAddressById(_user.GetUserId());
 
-            return CustomResponse(result);
+            return address == null ? NotFound() : CustomResponse(address);
+        }
+
+        [HttpPost("client/address")]
+        public async Task<IActionResult> AddAddress(AddAddressCommand address)
+        {
+            address.ClientId = _user.GetUserId();
+            return CustomResponse(await _mediator.SendCommand(address));
         }
     }
 }
