@@ -18,6 +18,7 @@ namespace ESE.Clients.API.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<IRequestHandler<RegisterClientCommand, ValidationResult>, ClientCommandHandler>();
+            services.AddScoped<IRequestHandler<AddAddressCommand, ValidationResult>, ClientCommandHandler>();
 
             services.AddScoped<INotificationHandler<ClientRegisteredEvent>, ClientEventHandler>();
 
