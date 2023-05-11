@@ -11,25 +11,25 @@ namespace ESE.WebApp.MVC.Models
     {
         [Required]
         [DisplayName("Logradouro")]
-        public string Street { get; private set; }
+        public string Street { get; set; }
         [Required]
         [DisplayName("Número")]
-        public string Number { get; private set; }
+        public string Number { get; set; }
         [Required]
         [DisplayName("Complemento")]
-        public string Complement { get; private set; }
+        public string Complement { get; set; }
         [Required]
         [DisplayName("Bairro")]
-        public string Neighborhood { get; private set; }
+        public string Neighborhood { get; set; }
         [Required]
         [DisplayName("Cidade")]
-        public string City { get; private set; }
+        public string City { get; set; }
         [Required]
         [DisplayName("Estado")]
-        public string State { get; private set; }
+        public string State { get; set; }
         [Required]
         [DisplayName("CEP")]
-        public string ZipCode { get; private set; }
+        public string ZipCode { get; set; }
         public override string ToString()
         {
             return $"{Street}, {Number} {Complement} - {Neighborhood} - {City} - {State}";
