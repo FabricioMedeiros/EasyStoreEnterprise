@@ -11,14 +11,17 @@ namespace ESE.WebApp.MVC.Services
 {
     public interface IShoppingBffService
     {
+        // Carrinho
         Task<CartViewModel> GetCart();
 
         Task<int> GetQuantityCart();
         Task<ResponseResult> AddItemCart(ItemCartViewModel product);
         Task<ResponseResult> UpdateItemCart(Guid productId, ItemCartViewModel product);
         Task<ResponseResult> RemoveItemCart(Guid productId);
-
         Task<ResponseResult> ApplyVoucherCart(string voucher);
+
+        // Pedido
+        OrderTransactionViewModel MapToOrder(CartViewModel cart, AddressViewModel address);
     }
     public class ShoppingBffService : Service, IShoppingBffService
     {
@@ -29,6 +32,7 @@ namespace ESE.WebApp.MVC.Services
             _httpClient.BaseAddress = new Uri(settings.Value.ShoppingBffUrl);
         }
 
+        #region Carrinho
         public async Task<CartViewModel> GetCart()
         {
             var response = await _httpClient.GetAsync("/shopping/cart");
@@ -88,5 +92,37 @@ namespace ESE.WebApp.MVC.Services
 
             return ReturnOk();
         }
+        #endregion
+
+        #region Pedido
+
+        public OrderTransactionViewModel MapToOrder(CartViewModel cart, AddressViewModel address)
+        {
+            var order = new OrderTransactionViewModel
+            {
+                TotalPrice = cart.TotalPrice,
+                Items = cart.Items,
+                Discount = cart.Discount,
+                VoucherUsed = cart.VoucherUsed,
+                VoucherCode = cart.Voucher?.Code
+            };
+
+            if (address != null)
+            {
+                order.Address = new AddressViewModel
+                {
+                    Street = address.Street,
+                    Number = address.Number,
+                    Neighborhood = address.Neighborhood,
+                    ZipCode = address.ZipCode,
+                    Complement = address.Complement,
+                    City = address.City,
+                    State = address.State
+                };
+            }
+
+            return order;
+        }
+        #endregion
     }
 }
