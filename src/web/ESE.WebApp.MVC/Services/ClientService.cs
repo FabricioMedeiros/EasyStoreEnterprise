@@ -15,11 +15,11 @@ namespace ESE.WebApp.MVC.Services
         Task<ResponseResult> AddAddress(AddressViewModel address);
     }
 
-    public class ClienteService : Service, IClientService
+    public class ClientService : Service, IClientService
     {
         private readonly HttpClient _httpClient;
 
-        public ClienteService(HttpClient httpClient, IOptions<AppSettings> settings)
+        public ClientService(HttpClient httpClient, IOptions<AppSettings> settings)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(settings.Value.ClientUrl);
