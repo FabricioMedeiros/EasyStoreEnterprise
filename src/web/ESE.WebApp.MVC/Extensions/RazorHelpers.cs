@@ -47,5 +47,9 @@ namespace ESE.WebApp.MVC.Extensions
 
             return sb.ToString();
         }
+        public static string UnitsByProductTotalPrice(this RazorPage page, int unidades, decimal valor)
+        {
+            return $"{unidades} x {page.FormatCurrency(valor)} = Total: {page.FormatCurrency(valor * unidades)}";
+        }
     }
 }
