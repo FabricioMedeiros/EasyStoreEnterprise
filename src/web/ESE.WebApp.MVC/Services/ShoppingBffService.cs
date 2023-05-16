@@ -3,6 +3,7 @@ using ESE.WebApp.MVC.Extensions;
 using ESE.WebApp.MVC.Models;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,7 +22,11 @@ namespace ESE.WebApp.MVC.Services
         Task<ResponseResult> ApplyVoucherCart(string voucher);
 
         // Pedido
+        Task<ResponseResult> CheckoutOrder(OrderTransactionViewModel orderTransaction);
+        Task<OrderViewModel> GetLastOrder();
+        Task<IEnumerable<OrderViewModel>> GetListByClientId();
         OrderTransactionViewModel MapToOrder(CartViewModel cart, AddressViewModel address);
+
     }
     public class ShoppingBffService : Service, IShoppingBffService
     {
@@ -95,6 +100,35 @@ namespace ESE.WebApp.MVC.Services
         #endregion
 
         #region Pedido
+
+        public async Task<ResponseResult> CheckoutOrder(OrderTransactionViewModel orderTransaction)
+        {
+            var orderContent = JsonSerialize(orderTransaction);
+
+            var response = await _httpClient.PostAsync("/shopping/order/", orderContent);
+
+            if (!CheckErrorsResponse(response)) return await DeserializeObjectResponse<ResponseResult>(response);
+
+            return ReturnOk();
+        }
+
+        public async Task<OrderViewModel> GetLastOrder()
+        {
+            var response = await _httpClient.GetAsync("/shopping/order/last/");
+
+            CheckErrorsResponse(response);
+
+            return await DeserializeObjectResponse<OrderViewModel>(response);
+        }
+
+        public async Task<IEnumerable<OrderViewModel>> GetListByClientId()
+        {
+            var response = await _httpClient.GetAsync("/shopping/order/list-client/");
+
+            CheckErrorsResponse(response);
+
+            return await DeserializeObjectResponse<IEnumerable<OrderViewModel>>(response);
+        }
 
         public OrderTransactionViewModel MapToOrder(CartViewModel cart, AddressViewModel address)
         {
