@@ -2,6 +2,7 @@
 using ESE.Bff.Shopping.Models;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace ESE.Bff.Shopping.Services
     public interface ICatalogService
     {
         Task<ItemProductDTO> GetById(Guid id);
+        Task<IEnumerable<ItemProductDTO>> GetItems(IEnumerable<Guid> ids);
     }
 
     public class CatalogService : Service, ICatalogService
@@ -29,6 +31,17 @@ namespace ESE.Bff.Shopping.Services
             CheckErrorsResponse(response);
 
             return await DeserializeObjectResponse<ItemProductDTO>(response);
+        }
+
+        public async Task<IEnumerable<ItemProductDTO>> GetItems(IEnumerable<Guid> ids)
+        {
+            var idsRequest = string.Join(",", ids);
+
+            var response = await _httpClient.GetAsync($"/catalog/products/list/{idsRequest}/");
+
+            CheckErrorsResponse(response);
+
+            return await DeserializeObjectResponse<IEnumerable<ItemProductDTO>>(response);
         }
     }
 }
