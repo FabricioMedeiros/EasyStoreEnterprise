@@ -9,6 +9,7 @@ namespace ESE.Catalog.API.Models
     {
         Task<IEnumerable<Product>> GetAll();
         Task<Product> GetById(Guid id);
+        Task<List<Product>> GestListProductsById(string ids);
 
         void Add(Product product);
         void Update(Product product);

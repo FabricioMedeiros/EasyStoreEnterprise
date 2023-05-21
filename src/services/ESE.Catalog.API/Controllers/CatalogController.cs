@@ -33,5 +33,11 @@ namespace ESE.Catalog.API.Controllers
         {
             return await _productRepository.GetById(id);
         }
+
+        [HttpGet("catalog/products/list/{ids}")]
+        public async Task<IEnumerable<Product>> GetListProductsById(string ids)
+        {
+            return await _productRepository.GestListProductsById(ids);
+        }
     }
 }
