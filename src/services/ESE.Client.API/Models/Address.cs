@@ -27,6 +27,7 @@ namespace ESE.Clients.API.Models
             City = city;
             State = state;
             ClientId = clientId;
+            ZipCode = zipCode;
         }
     }
 }
