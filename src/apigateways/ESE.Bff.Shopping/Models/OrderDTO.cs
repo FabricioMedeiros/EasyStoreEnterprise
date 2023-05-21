@@ -24,6 +24,7 @@ namespace ESE.Bff.Shopping.Models
         public decimal TotalPrice { get; set; }
 
         public decimal Discount { get; set; }
+        public string VoucherCode { get; set; }
         public bool VoucherUsed { get; set; }
 
         public List<ItemCartDTO> OrderItems { get; set; } = new List<ItemCartDTO>();
