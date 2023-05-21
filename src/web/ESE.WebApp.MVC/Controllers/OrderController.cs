@@ -32,7 +32,7 @@ namespace ESE.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("payment")]
-        public async Task<IActionResult> Pagamento()
+        public async Task<IActionResult> Payment()
         {
             var cart = await _shoppingBffService.GetCart();
             if (cart.Items.Count == 0) return RedirectToAction("Index", "Cart");
@@ -44,7 +44,7 @@ namespace ESE.WebApp.MVC.Controllers
 
         [HttpPost]
         [Route("checkout-order")]
-        public async Task<IActionResult> FinalizarPedido(OrderTransactionViewModel orderTransaction)
+        public async Task<IActionResult> CheckoutOrder(OrderTransactionViewModel orderTransaction)
         {
             if (!ModelState.IsValid) 
               return View("Payment", _shoppingBffService.MapToOrder( await _shoppingBffService.GetCart(), null));

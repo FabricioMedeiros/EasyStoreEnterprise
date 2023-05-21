@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace ESE.WebApp.MVC.Controllers
 {
     [Authorize]
-    public class ClienteController : MainController
+    public class ClientController : MainController
     {
         private readonly IClientService _clientService;
 
-        public ClienteController(IClientService clientService)
+        public ClientController(IClientService clientService)
         {
             _clientService = clientService;
         }
