@@ -51,5 +51,38 @@ namespace ESE.WebApp.MVC.Extensions
         {
             return $"{unidades} x {page.FormatCurrency(valor)} = Total: {page.FormatCurrency(valor * unidades)}";
         }
+
+        public static string ShowStatus(this RazorPage page, int status)
+        {
+            var statusMensage = "";
+            var statusClass = "";
+
+            switch (status)
+            {
+                case 1:
+                    statusClass = "info";
+                    statusMensage = "Em aprovação";
+                    break;
+                case 2:
+                    statusClass = "primary";
+                    statusMensage = "Aprovado";
+                    break;
+                case 3:
+                    statusClass = "danger";
+                    statusMensage = "Recusado";
+                    break;
+                case 4:
+                    statusClass = "success";
+                    statusMensage = "Entregue";
+                    break;
+                case 5:
+                    statusClass = "warning";
+                    statusMensage = "Cancelado";
+                    break;
+
+            }
+
+            return $"<span class='badge badge-{statusClass}'>{statusMensage}</span>";
+        }
     }
 }
