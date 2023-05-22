@@ -6,14 +6,14 @@ namespace ESE.Payments.EasyPay
 {
    public class Transaction
     {
-        public Transaction(EasyPayService nerdsPagService)
+        public Transaction(EasyPayService easyPayService)
         {
-            NerdsPagService = nerdsPagService;
+            EasyPayService = easyPayService;
         }
 
         protected Transaction(){}
 
-        private readonly EasyPayService NerdsPagService;
+        private readonly EasyPayService EasyPayService;
 
         protected string Endpoint { get; set; }
 
