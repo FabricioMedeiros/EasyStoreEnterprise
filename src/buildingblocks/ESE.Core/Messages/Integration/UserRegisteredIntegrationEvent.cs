@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ESE.Core.Messages.Itegration
+namespace ESE.Core.Messages.Integration
 {
     public class UserRegisteredIntegrationEvent : IntegrationEvent
     {
