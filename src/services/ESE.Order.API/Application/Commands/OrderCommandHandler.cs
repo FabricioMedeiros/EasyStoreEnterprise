@@ -1,4 +1,6 @@
 ﻿using ESE.Core.Messages;
+using ESE.Core.Messages.Integration;
+using ESE.MessageBus;
 using ESE.Orders.API.Application.DTO;
 using ESE.Orders.API.Application.Events;
 using ESE.Orders.Domain.Orders;
@@ -17,12 +19,13 @@ namespace ESE.Orders.API.Application.Commands
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IVoucherRepository _voucherRepository;
+        private readonly IMessageBus _bus;
 
-        public OrderCommandHandler(IVoucherRepository voucherRepository,
-                                   IOrderRepository orderRepository)
+        public OrderCommandHandler(IOrderRepository orderRepository, IVoucherRepository voucherRepository, IMessageBus bus)
         {
-            _voucherRepository = voucherRepository;
             _orderRepository = orderRepository;
+            _voucherRepository = voucherRepository;
+            _bus = bus;
         }
 
         public async Task<ValidationResult> Handle(AddOrderCommand message, CancellationToken cancellationToken)
@@ -40,7 +43,7 @@ namespace ESE.Orders.API.Application.Commands
             if (!ValidateOrder(order)) return ValidationResult;
 
             // Processar pagamento
-            if (!ProcessPayment(order)) return ValidationResult;
+            if (!await ProcessPayment(order, message)) return ValidationResult;
 
             // Se pagamento tudo ok!
             order.AuthorizeOrder();
@@ -128,9 +131,30 @@ namespace ESE.Orders.API.Application.Commands
             return true;
         }
 
-        public bool ProcessPayment(Order order)
+        public async Task<bool> ProcessPayment(Order order, AddOrderCommand message)
         {
-            return true;
+            var orderStarted = new OrderStartedIntegrationEvent
+            {
+                OrderId = order.Id,
+                ClientId = order.ClientId,
+                Price = order.TotalPrice,
+                TypePayment = 1, // fixo. Alterar se tiver mais tipos
+                NameCard = message.NameCard,
+                NumberCard = message.NumberCard,
+                MonthYearExpiry = message.ExpirationCard,
+                CVV = message.CvvCard
+            };
+
+            var result = await _bus.RequestAsync<OrderStartedIntegrationEvent, ResponseMessage>(orderStarted);
+
+            if (result.ValidationResult.IsValid) return true;
+
+            foreach (var error in result.ValidationResult.Errors)
+            {
+                AddError(error.ErrorMessage);
+            }
+
+            return false;
         }
     }
 }
