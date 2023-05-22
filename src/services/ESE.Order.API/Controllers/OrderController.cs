@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace ESE.Orders.API.Controllers
 {
     [Authorize]
-    public class PedidoController : MainController
+    public class OrderController : MainController
     {
         private readonly IMediatorHandler _mediator;
         private readonly IAspNetUser _user;
         private readonly IOrderQueries _orderQueries;
 
-        public PedidoController(IMediatorHandler mediator,
+        public OrderController(IMediatorHandler mediator,
             IAspNetUser user,
             IOrderQueries orderQueries)
         {
@@ -33,7 +33,7 @@ namespace ESE.Orders.API.Controllers
         }
 
         [HttpGet("order/last")]
-        public async Task<IActionResult> UltimoPedido()
+        public async Task<IActionResult> GetLastOrder()
         {
             var order = await _orderQueries.GetLastOrder(_user.GetUserId());
 

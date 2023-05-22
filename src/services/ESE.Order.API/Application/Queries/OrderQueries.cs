@@ -26,15 +26,15 @@ namespace ESE.Orders.API.Application.Queries
         public async Task<OrderDTO> GetLastOrder(Guid clientId)
         {
             const string sql = @"SELECT
-                                P.ID AS 'PRODUCTID', P.CODE, P.VOUCHERUSED, P.DISCOUNT, P.TOTALPRICE,P.ORDERSTATUS,
+                                P.ID AS 'PRODUCTID', P.CODE, P.VOUCHERUSED, P.DISCOUNT, P.TOTALPRICE, P.ORDERSTATUS,
                                 P.STREET,P.NUMBER, P.NEIGHBORHOOD, P.ZIPCODE, P.COMPLEMENT, P.CITY, P.STATE,
-                                PIT.ID AS 'PRODUCTITEMID',PIT.PRODUTONAME, PIT.QUANTITY, PIT.IMAGE, PIT.PRICE 
+                                PIT.ID AS 'PRODUCTITEMID', PIT.PRODUCTNAME, PIT.QUANTITY, PIT.IMAGE, PIT.PRICE 
                                 FROM ORDERS P 
                                 INNER JOIN ORDERITEMS PIT ON P.ID = PIT.ORDERID 
                                 WHERE P.CLIENTID = @clientId 
-                                AND P.CREATEDDATE between DATEADD(minute, -3,  GETDATE()) and DATEADD(minute, 0,  GETDATE())
+                                AND P.CREATIONDATE between DATEADD(minute, -3,  GETDATE()) and DATEADD(minute, 0,  GETDATE())
                                 AND P.ORDERSTATUS = 1 
-                                ORDER BY P.CREATEDDATE DESC";
+                                ORDER BY P.CREATIONDATE DESC";
 
             var order = await _orderRepository.GetConnection().QueryAsync<dynamic>(sql, new { clientId });
 
@@ -53,7 +53,7 @@ namespace ESE.Orders.API.Application.Queries
             var order = new OrderDTO
             {
                 Code = result[0].CODE,
-                Status = result[0].ORDERTATUS,
+                Status = result[0].ORDERSTATUS,
                 TotalPrice = result[0].TOTALPRICE,
                 Discount = result[0].DISCOUNT,
                 VoucherUsed = result[0].VOUCHERUSED,
