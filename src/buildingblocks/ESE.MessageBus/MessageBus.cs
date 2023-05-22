@@ -1,5 +1,5 @@
 ﻿using EasyNetQ;
-using ESE.Core.Messages.Itegration;
+using ESE.Core.Messages.Integration;
 using Polly;
 using RabbitMQ.Client.Exceptions;
 using System;
