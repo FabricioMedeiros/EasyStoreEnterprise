@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Data\Mapping\" />
+    <Folder Include="Data\Repository\" />
   </ItemGroup>
 
   <ItemGroup>
