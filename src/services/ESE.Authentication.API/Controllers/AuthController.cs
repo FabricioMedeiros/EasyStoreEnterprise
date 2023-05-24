@@ -1,5 +1,5 @@
 ﻿using ESE.Authentication.API.Models;
-using ESE.Core.Messages.Itegration;
+using ESE.Core.Messages.Integration;
 using ESE.MessageBus;
 using ESE.WebAPI.Core.Authentication;
 using ESE.WebAPI.Core.Controllers;
