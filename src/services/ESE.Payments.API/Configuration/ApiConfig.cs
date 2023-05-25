@@ -1,4 +1,5 @@
 ﻿using ESE.Payments.API.Data;
+using ESE.Payments.API.Facede;
 using ESE.WebAPI.Core.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +18,8 @@ namespace ESE.Payments.API.Configuration
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
+
+            services.Configure<PaymentConfig>(configuration.GetSection("PaymentConfig"));
 
             services.AddCors(options =>
             {
