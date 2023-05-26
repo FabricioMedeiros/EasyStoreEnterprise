@@ -3,7 +3,7 @@ using System;
 
 namespace ESE.Payments.API.Models
 {
-    public class Transaction : Entity
+    public class PaymentTransaction : Entity
     {
         public string AuthorizeCode { get; set; }
         public string CardBrand { get; set; }

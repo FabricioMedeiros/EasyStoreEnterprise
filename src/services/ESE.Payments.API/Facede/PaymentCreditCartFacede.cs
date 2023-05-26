@@ -1,13 +1,77 @@
-﻿using System;
+﻿using ESE.Payments.API.Models;
+using ESE.Payments.EasyPay;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ESE.Payments.API.Facede
 {
-    public class PaymentCreditCartFacede
+    public class PaymentCreditCartFacede : IPaymentFacede
     {
-        public string DefaultApiKey { get; set; }
-        public string DefaultEncryptionKey { get; set; }
+        private readonly PaymentConfig _paymentConfig;
+
+        public PaymentCreditCartFacede(PaymentConfig paymentConfig)
+        {
+            _paymentConfig = paymentConfig;
+        }
+
+        public async Task<PaymentTransaction> AuthorizePayment(Payment payment)
+        {
+            var easyPagSvc = new EasyPayService(_paymentConfig.DefaultApiKey,
+                _paymentConfig.DefaultEncryptionKey);
+
+            var cardHashGen = new CardHash(easyPagSvc)
+            {
+                CardNumber = payment.CreditCard.NumberCard,
+                CardHolderName = payment.CreditCard.NameCard,
+                CardExpirationDate = payment.CreditCard.MonthYearExpiry,
+                CardCvv = payment.CreditCard.CVV
+            };
+            var cardHash = cardHashGen.Generate();
+
+            var transaction = new Transaction(easyPagSvc)
+            {
+                CardHash = cardHash,
+                CardNumber = payment.CreditCard.NumberCard,
+                CardHolderName = payment.CreditCard.NameCard,
+                CardExpirationDate = payment.CreditCard.MonthYearExpiry,
+                CardCvv = payment.CreditCard.CVV,
+                PaymentMethod = PaymentMethod.CreditCard,
+                Amount = payment.Price
+            };
+
+            return ToPaymentTransaction(await transaction.AuthorizeCardTransaction());
+
+        }
+        public static PaymentTransaction ToPaymentTransaction(Transaction transaction)
+        {
+            return new PaymentTransaction
+            {
+                Id = Guid.NewGuid(),
+                Status = (PaymentTransactionStatus)transaction.Status,
+                TotalPrice = transaction.Amount,
+                CardBrand = transaction.CardBrand,
+                AuthorizeCode = transaction.AuthorizationCode,
+                Cost = transaction.Cost,
+                TransactionDate = transaction.TransactionDate,
+                NSU = transaction.Nsu,
+                TID = transaction.Tid
+            };
+        }
+
+        public static Transaction ToTransaction(PaymentTransaction paymentTransaction, EasyPayService easyPayService)
+        {
+            return new Transaction(easyPayService)
+            {
+                Status = (TransactionStatus)paymentTransaction.Status,
+                Amount = paymentTransaction.TotalPrice,
+                CardBrand = paymentTransaction.CardBrand,
+                AuthorizationCode = paymentTransaction.AuthorizeCode,
+                Cost = paymentTransaction.Cost,
+                Nsu = paymentTransaction.NSU,
+                Tid = paymentTransaction.TID
+            };
+        }
     }
 }

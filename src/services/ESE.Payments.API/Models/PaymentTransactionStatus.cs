@@ -1,6 +1,6 @@
 ﻿namespace ESE.Payments.API.Models
 {
-    public enum TransactionStatus
+    public enum PaymentTransactionStatus
     {
         Authorized = 1,
         Paid,

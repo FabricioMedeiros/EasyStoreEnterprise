@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ESE.Payments.API.Data.Mapping
 {
-    public class TransactionMapping : IEntityTypeConfiguration<Transaction>
+    public class TransactionMapping : IEntityTypeConfiguration<PaymentTransaction>
     {
-        public void Configure(EntityTypeBuilder<Transaction> builder)
+        public void Configure(EntityTypeBuilder<PaymentTransaction> builder)
         {
             builder.HasKey(c => c.Id);
 

@@ -8,7 +8,7 @@ namespace ESE.Payments.API.Models
     {
         public Payment()
         {
-            Transactions = new List<Transaction>();
+            Transactions = new List<PaymentTransaction>();
         }
 
         public Guid OrderId { get; set; }
@@ -18,9 +18,9 @@ namespace ESE.Payments.API.Models
         public CreditCard CreditCard { get; set; }
 
         // EF Relation
-        public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<PaymentTransaction> Transactions { get; set; }
 
-        public void AddTransaction(Transaction transaction)
+        public void AddTransaction(PaymentTransaction transaction)
         {
             Transactions.Add(transaction);
         }

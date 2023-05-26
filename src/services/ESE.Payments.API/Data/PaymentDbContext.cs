@@ -17,7 +17,7 @@ namespace ESE.Payments.API.Data
         }
 
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<PaymentTransaction> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
