@@ -1,5 +1,6 @@
 ﻿using ESE.Payments.API.Models;
 using ESE.Payments.EasyPay;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,17 @@ namespace ESE.Payments.API.Facede
     {
         private readonly PaymentConfig _paymentConfig;
 
-        public PaymentCreditCartFacede(PaymentConfig paymentConfig)
+        public PaymentCreditCartFacede(IOptions<PaymentConfig> paymentConfig)
         {
-            _paymentConfig = paymentConfig;
+            _paymentConfig = paymentConfig.Value;
         }
 
         public async Task<PaymentTransaction> AuthorizePayment(Payment payment)
         {
-            var easyPagSvc = new EasyPayService(_paymentConfig.DefaultApiKey,
+            var easyPaySvc = new EasyPayService(_paymentConfig.DefaultApiKey,
                 _paymentConfig.DefaultEncryptionKey);
 
-            var cardHashGen = new CardHash(easyPagSvc)
+            var cardHashGen = new CardHash(easyPaySvc)
             {
                 CardNumber = payment.CreditCard.NumberCard,
                 CardHolderName = payment.CreditCard.NameCard,
@@ -30,7 +31,7 @@ namespace ESE.Payments.API.Facede
             };
             var cardHash = cardHashGen.Generate();
 
-            var transaction = new Transaction(easyPagSvc)
+            var transaction = new Transaction(easyPaySvc)
             {
                 CardHash = cardHash,
                 CardNumber = payment.CreditCard.NumberCard,
