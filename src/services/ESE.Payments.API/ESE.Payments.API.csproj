@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\buildingblocks\ESE.Core\ESE.Core.csproj" />
+    <ProjectReference Include="..\..\buildingblocks\ESE.MessageBus\ESE.MessageBus.csproj" />
     <ProjectReference Include="..\..\buildingblocks\ESE.WebAPI.Core\ESE.WebAPI.Core.csproj" />
     <ProjectReference Include="..\ESE.Payments.EasyPay\ESE.Payments.EasyPay.csproj" />
   </ItemGroup>

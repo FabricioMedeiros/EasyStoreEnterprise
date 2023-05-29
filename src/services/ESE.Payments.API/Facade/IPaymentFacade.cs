@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace ESE.Payments.API.Facede
 {
-    interface IPaymentFacede
+    public interface IPaymentFacade
     {
         Task<PaymentTransaction> AuthorizePayment(Payment payment);
     }

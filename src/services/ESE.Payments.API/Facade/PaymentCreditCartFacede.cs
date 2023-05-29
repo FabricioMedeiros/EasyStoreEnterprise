@@ -2,17 +2,15 @@
 using ESE.Payments.EasyPay;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ESE.Payments.API.Facede
 {
-    public class PaymentCreditCartFacede : IPaymentFacede
+    public class PaymentCreditCardFacede : IPaymentFacade
     {
         private readonly PaymentConfig _paymentConfig;
 
-        public PaymentCreditCartFacede(IOptions<PaymentConfig> paymentConfig)
+        public PaymentCreditCardFacede(IOptions<PaymentConfig> paymentConfig)
         {
             _paymentConfig = paymentConfig.Value;
         }
