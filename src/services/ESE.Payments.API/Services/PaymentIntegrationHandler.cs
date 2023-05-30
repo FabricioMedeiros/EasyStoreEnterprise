@@ -16,6 +16,12 @@ namespace ESE.Payments.API.Services
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
+        public PaymentIntegrationHandler(IMessageBus bus, IServiceProvider serviceProvider)
+        {
+            _bus = bus;
+            _serviceProvider = serviceProvider;
+        }
+
         private void SetRespond()
         {
             _bus.RespondAsync<OrderStartedIntegrationEvent, ResponseMessage>(async request =>
@@ -31,6 +37,7 @@ namespace ESE.Payments.API.Services
         {
             using var scope = _serviceProvider.CreateScope();
             var paymentService = scope.ServiceProvider.GetRequiredService<IPaymentService>();
+
             var payment = new Payment
             {
                 OrderId = message.OrderId,
