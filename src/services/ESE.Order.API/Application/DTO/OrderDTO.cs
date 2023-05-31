@@ -11,6 +11,7 @@ namespace ESE.Orders.API.Application.DTO
         public Guid Id { get; set; }
         public int Code { get; set; }
 
+        public Guid ClientId { get; set; }
         public int Status { get; set; }
         public DateTime Date { get; set; }
         public decimal TotalPrice { get; set; }

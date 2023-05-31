@@ -25,9 +25,5 @@
     <ProjectReference Include="..\ESE.Order.Infra\ESE.Orders.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 
 </Project>

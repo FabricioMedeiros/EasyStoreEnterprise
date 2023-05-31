@@ -12,6 +12,8 @@ namespace ESE.Orders.API.Application.Queries
     {
         Task<OrderDTO> GetLastOrder(Guid clientId);
         Task<IEnumerable<OrderDTO>> GetListByClientId(Guid clientId);
+
+        Task<OrderDTO> GetAuthorizedOrders();
     }
 
     public class OrderQueries : IOrderQueries
@@ -21,7 +23,7 @@ namespace ESE.Orders.API.Application.Queries
         public OrderQueries(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
-        }
+        }      
 
         public async Task<OrderDTO> GetLastOrder(Guid clientId)
         {
@@ -85,6 +87,36 @@ namespace ESE.Orders.API.Application.Queries
             }
 
             return order;
+        }
+
+        public async Task<OrderDTO> GetAuthorizedOrders()
+        {
+            const string sql = @"SELECT 
+                                P.ID as 'OrderId', P.ID, P.CLIENTID, 
+                                PI.ID as 'OrderItemId', PI.ID, PI.PRODUCTID, PI.QUANTITY 
+                                FROM ORDERS P 
+                                INNER JOIN ORDERITEMS PI ON P.ID = PI.ORDERID 
+                                WHERE P.ORDERSTATUS = 1                                
+                                ORDER BY P.CREATIONDATE";
+
+            // Utilizacao do lookup para manter o estado a cada ciclo de registro retornado
+            var lookup = new Dictionary<Guid, OrderDTO>();
+
+            await _orderRepository.GetConnection().QueryAsync<OrderDTO, OrderItemDTO, OrderDTO>(sql,
+                (p, pi) =>
+                {
+                    if (!lookup.TryGetValue(p.Id, out var orderDTO))
+                        lookup.Add(p.Id, orderDTO = p);
+
+                    orderDTO.OrderItems ??= new List<OrderItemDTO>();
+                    orderDTO.OrderItems.Add(pi);
+
+                    return orderDTO;
+
+                }, splitOn: "OrderId,OrderItemId");
+
+            // Obtendo dados o lookup
+            return lookup.Values.OrderBy(p => p.Date).FirstOrDefault();
         }
     }
 }
