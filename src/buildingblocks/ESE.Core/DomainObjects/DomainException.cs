@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ESE.Core.DomainObjects
 {
-    class DomainException : Exception
+    public class DomainException : Exception
     {
         public DomainException()
         { }
