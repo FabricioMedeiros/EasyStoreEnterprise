@@ -23,9 +23,5 @@
     <ProjectReference Include="..\ESE.Payments.EasyPay\ESE.Payments.EasyPay.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 
 </Project>
