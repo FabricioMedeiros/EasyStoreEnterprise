@@ -15,5 +15,14 @@ namespace ESE.Catalog.API.Models
         public DateTime CreatedAt { get; set; }
         public string Image { get; set; }
         public int Stock { get; set; }
-    }
+        public bool Available(int quantity)
+        {
+            return Active && Stock >= quantity;
+        }
+        public void DecrementStock(int quantity)
+        {
+            if (Stock >= quantity)
+              Stock -= quantity;
+        }
+    }    
 }
