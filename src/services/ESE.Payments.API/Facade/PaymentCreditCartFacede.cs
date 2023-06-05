@@ -43,6 +43,24 @@ namespace ESE.Payments.API.Facede
             return ToPaymentTransaction(await transaction.AuthorizeCardTransaction());
 
         }
+
+        public async Task<PaymentTransaction> CapturePayment(PaymentTransaction paymentTransaction)
+        {
+            var easyPaySvc = new EasyPayService(_paymentConfig.DefaultApiKey, _paymentConfig.DefaultEncryptionKey);
+
+            var transaction = ToTransaction(paymentTransaction, easyPaySvc);
+
+            return ToPaymentTransaction(await transaction.CaptureCardTransaction());
+        }
+
+        public async Task<PaymentTransaction> CancelAuthorization(PaymentTransaction paymentTransaction)
+        {
+            var easyPaySvc = new EasyPayService(_paymentConfig.DefaultApiKey, _paymentConfig.DefaultEncryptionKey);
+
+            var transaction = ToTransaction(paymentTransaction, easyPaySvc);
+
+            return ToPaymentTransaction(await transaction.CancelAuthorization());
+        }
         public static PaymentTransaction ToPaymentTransaction(Transaction transaction)
         {
             return new PaymentTransaction
@@ -58,7 +76,6 @@ namespace ESE.Payments.API.Facede
                 TID = transaction.Tid
             };
         }
-
         public static Transaction ToTransaction(PaymentTransaction paymentTransaction, EasyPayService easyPayService)
         {
             return new Transaction(easyPayService)
