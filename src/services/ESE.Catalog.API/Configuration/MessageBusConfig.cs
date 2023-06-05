@@ -1,4 +1,5 @@
-﻿using ESE.Core.Utils;
+﻿using ESE.Catalog.API.Services;
+using ESE.Core.Utils;
 using ESE.MessageBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
