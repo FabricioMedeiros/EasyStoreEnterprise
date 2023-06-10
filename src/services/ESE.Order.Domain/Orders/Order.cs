@@ -41,6 +41,19 @@ namespace ESE.Orders.Domain.Orders
         {
             OrderStatus = OrderStatus.Authorized;
         }
+        public void SetAuthorizedOrder()
+        {
+            OrderStatus = OrderStatus.Authorized;
+        }
+        public void SetCanceledOrder()
+        {
+            OrderStatus = OrderStatus.Canceled;
+        }
+
+        public void SetPaidOrder()
+        {
+            OrderStatus = OrderStatus.Paid;
+        }
 
         public void SetVoucher(Voucher voucher)
         {
