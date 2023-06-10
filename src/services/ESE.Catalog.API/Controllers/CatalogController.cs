@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESE.Catalog.API.Controllers
 {
-    [Authorize]
     public class CatalogController : MainController
     {
         private readonly IProductRepository _productRepository;
@@ -20,11 +19,10 @@ namespace ESE.Catalog.API.Controllers
             _productRepository = productRepository;
         }
 
-        [AllowAnonymous]
         [HttpGet("catalog/products")]
-        public async Task<IEnumerable<Product>> Index()
+        public async Task<PagedResult<Product>> Index([FromQuery] int ps = 8, [FromQuery] int page = 1, [FromQuery] string q = null)
         {
-            return await _productRepository.GetAll();
+            return await _productRepository.GetAll(ps, page, q);
         }
 
         [ClaimsAuthorize("Catalog","Read")]
