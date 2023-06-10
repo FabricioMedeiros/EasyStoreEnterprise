@@ -79,9 +79,9 @@ namespace ESE.Payments.API.Services
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                var pagamentoService = scope.ServiceProvider.GetRequiredService<IPaymentService>();
+                var paymentService = scope.ServiceProvider.GetRequiredService<IPaymentService>();
 
-                var response = await pagamentoService.CapturePayment(message.OrderId);
+                var response = await paymentService.CapturePayment(message.OrderId);
 
                 if (!response.ValidationResult.IsValid)
                     throw new DomainException($"Falha ao capturar pagamento do pedido {message.OrderId}");
