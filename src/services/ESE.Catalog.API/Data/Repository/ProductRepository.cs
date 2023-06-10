@@ -1,4 +1,5 @@
-﻿using ESE.Catalog.API.Models;
+﻿using Dapper;
+using ESE.Catalog.API.Models;
 using ESE.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,11 +20,31 @@ namespace ESE.Catalog.API.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<PagedResult<Product>> GetAll(int pageSize, int pageIndex, string query = null)
         {
-            return await _context.Products.AsNoTracking().ToListAsync();
-        }
+            var sql = @$"SELECT * FROM PRODUCTS 
+                      WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%') 
+                      ORDER BY [Name] 
+                      OFFSET {pageSize * (pageIndex - 1)} ROWS 
+                      FETCH NEXT {pageSize} ROWS ONLY 
+                      SELECT COUNT(Id) FROM PRODUCTS 
+                      WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%')";
 
+            var multi = await _context.Database.GetDbConnection()
+                .QueryMultipleAsync(sql, new { Name = query });
+
+            var products = multi.Read<Product>();
+            var total = multi.Read<int>().FirstOrDefault();
+
+            return new PagedResult<Product>()
+            {
+                List = products,
+                TotalResults = total,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                Query = query
+            };
+        }
         public async Task<Product> GetById(Guid id)
         {
             return await _context.Products.FindAsync(id);
