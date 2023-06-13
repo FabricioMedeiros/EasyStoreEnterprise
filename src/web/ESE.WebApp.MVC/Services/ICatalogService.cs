@@ -7,7 +7,7 @@ namespace ESE.WebApp.MVC.Services
 {
     public interface ICatalogService
     {
-       Task<IEnumerable<ProductViewModel>> GetAll();
-       Task<ProductViewModel> GetById(Guid id);
+        Task<PagedViewModel<ProductViewModel>> GetAll(int pageSize, int pageIndex, string query = null);
+        Task<ProductViewModel> GetById(Guid id);
     }
 }
