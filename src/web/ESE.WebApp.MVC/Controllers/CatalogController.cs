@@ -17,9 +17,11 @@ namespace ESE.WebApp.MVC.Controllers
         [HttpGet]
         [Route("")]
         [Route("products")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] int ps = 8, [FromQuery] int page = 1, [FromQuery] string q = null)
         {
-            var products = await _catalogService.GetAll();
+            var products = await _catalogService.GetAll(ps, page, q);
+            ViewBag.Search = q;
+            products.ReferenceAction = "Index";
 
             return View(products);
         }
