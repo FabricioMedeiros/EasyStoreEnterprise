@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetDevPack.Security.JwtSigningCredentials;
 
 namespace ESE.Authentication.API.Configuration
 {
@@ -13,6 +14,8 @@ namespace ESE.Authentication.API.Configuration
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddJwksManager(options => options.Algorithm = Algorithm.ES256).PersistKeysToDatabaseStore<ApplicationDbContext>();
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
@@ -20,8 +23,6 @@ namespace ESE.Authentication.API.Configuration
                     .AddErrorDescriber<IdentityMessagesPortuguese>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
-
-            services.AddJwtConfiguration(configuration);
 
             return services;
         }
