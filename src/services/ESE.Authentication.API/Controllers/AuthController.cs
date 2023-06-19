@@ -3,10 +3,12 @@ using ESE.Core.Messages.Integration;
 using ESE.MessageBus;
 using ESE.WebAPI.Core.Authentication;
 using ESE.WebAPI.Core.Controllers;
+using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NetDevPack.Security.JwtSigningCredentials.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -24,14 +26,19 @@ namespace ESE.Authentication.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
+        private readonly IJsonWebKeySetService _jwksService;
+        private readonly IAspNetUser _aspNetUser;
+
         private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings, IMessageBus bus)
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings, IMessageBus bus, IAspNetUser aspNetUser, IJsonWebKeySetService jwksService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
             _bus = bus;
+            _aspNetUser = aspNetUser;
+            _jwksService = jwksService;
         }
 
         [HttpPost("register")]
@@ -126,14 +133,14 @@ namespace ESE.Authentication.API.Controllers
         private string EncondeToken(ClaimsIdentity identityClaims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var currentIssuer =  $"{_aspNetUser.GetHttpContext().Request.Scheme}://{_aspNetUser.GetHttpContext().Request.Host}";
+            var key = _jwksService.GetCurrent(); 
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = _appSettings.Issuer,
-                Audience = _appSettings.Audience,
+                Issuer = currentIssuer,
                 Subject = identityClaims,
-                Expires = DateTime.UtcNow.AddHours(_appSettings.ExpirationHours),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = key
             });
 
             var encodedToken = tokenHandler.WriteToken(token);
@@ -145,7 +152,7 @@ namespace ESE.Authentication.API.Controllers
             return new UserResponseLogin
             {
                 AccessToken = encodedToken,
-                ExpiresIn = TimeSpan.FromHours(_appSettings.ExpirationHours).TotalSeconds,
+                ExpiresIn = TimeSpan.FromHours(1).TotalSeconds,
                 UserToken = new UserToken
                 {
                     Id = user.Id,
