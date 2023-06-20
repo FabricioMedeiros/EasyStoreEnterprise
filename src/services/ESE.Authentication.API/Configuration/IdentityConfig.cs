@@ -14,6 +14,9 @@ namespace ESE.Authentication.API.Configuration
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            var appSettingsSection = configuration.GetSection("AppTokenSettings");
+            services.Configure<AppTokenSettings>(appSettingsSection);
+
             services.AddJwksManager(options => options.Algorithm = Algorithm.ES256).PersistKeysToDatabaseStore<ApplicationDbContext>();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
