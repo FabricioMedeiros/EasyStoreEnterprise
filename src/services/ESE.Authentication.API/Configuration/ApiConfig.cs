@@ -1,4 +1,5 @@
-﻿using ESE.WebAPI.Core.Authentication;
+﻿using ESE.Authentication.API.Services;
+using ESE.WebAPI.Core.Authentication;
 using ESE.WebAPI.Core.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ namespace ESE.Authentication.API.Configuration
         {
             services.AddControllers();
 
+            services.AddScoped<AuthenticationService>();
             services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;
