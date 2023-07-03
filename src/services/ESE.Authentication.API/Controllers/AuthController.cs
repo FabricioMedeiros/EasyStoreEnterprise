@@ -1,44 +1,26 @@
-﻿using ESE.Authentication.API.Models;
-using ESE.Core.Messages.Integration;
-using ESE.MessageBus;
-using ESE.WebAPI.Core.Authentication;
-using ESE.WebAPI.Core.Controllers;
-using ESE.WebAPI.Core.User;
+﻿
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using NetDevPack.Security.JwtSigningCredentials.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+using ESE.Core.Messages.Integration;
+using ESE.Authentication.API.Models;
+using ESE.Authentication.API.Services;
+using ESE.MessageBus;
+using ESE.WebAPI.Core.Controllers;
 
 namespace ESE.Authentication.API.Controllers
 {
     [Route("api/authentication")]
     public class AuthController : MainController
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly AppSettings _appSettings;
-
-        private readonly IJsonWebKeySetService _jwksService;
-        private readonly IAspNetUser _aspNetUser;
-
+        private readonly AuthenticationService _authenticationService;
         private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings, IMessageBus bus, IAspNetUser aspNetUser, IJsonWebKeySetService jwksService)
+        public AuthController(AuthenticationService authenticationService, IMessageBus bus)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _appSettings = appSettings.Value;
+            _authenticationService = authenticationService;
             _bus = bus;
-            _aspNetUser = aspNetUser;
-            _jwksService = jwksService;
         }
 
         [HttpPost("register")]
@@ -54,7 +36,7 @@ namespace ESE.Authentication.API.Controllers
                 EmailConfirmed = true
             };
 
-            var result = await _userManager.CreateAsync(user, userRegister.Password);
+            var result = await _authenticationService.UserManager.CreateAsync(user, userRegister.Password);
 
             if (result.Succeeded)
             {
@@ -62,11 +44,11 @@ namespace ESE.Authentication.API.Controllers
 
                 if (!clientResult.ValidationResult.IsValid)
                 {
-                    await _userManager.DeleteAsync(user);
+                    await _authenticationService.UserManager.DeleteAsync(user);
                     return CustomResponse(clientResult.ValidationResult);
                 }
 
-                return CustomResponse(await CreateJwt(userRegister.Email));
+                return CustomResponse(await _authenticationService.CreateJwt(userRegister.Email));
             }
 
             foreach (var error in result.Errors)
@@ -82,11 +64,11 @@ namespace ESE.Authentication.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, true);
+            var result = await _authenticationService.SignInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, false, true);
 
             if (result.Succeeded)
             {
-                return CustomResponse(await CreateJwt(userLogin.Email));
+                return CustomResponse(await _authenticationService.CreateJwt(userLogin.Email));
             }
 
             if (result.IsLockedOut)
@@ -99,75 +81,9 @@ namespace ESE.Authentication.API.Controllers
             return CustomResponse();
         }
 
-        private async Task<UserResponseLogin> CreateJwt(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            var claims = await _userManager.GetClaimsAsync(user);
-            ClaimsIdentity identityClaims = await GetUserClaims(user, claims);
-
-            string encodedToken = EncondeToken(identityClaims);
-            return UserResponseLogin(user, claims, encodedToken);
-
-        }      
-
-        private async Task<ClaimsIdentity> GetUserClaims(IdentityUser user, IList<Claim> claims)
-        {
-            var userRoles = await _userManager.GetRolesAsync(user);
-
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));
-
-            foreach (var userRole in userRoles)
-            {
-                claims.Add(new Claim("role", userRole));
-            }
-
-            var identityClaims = new ClaimsIdentity();
-            identityClaims.AddClaims(claims);
-            return identityClaims;
-        }
-
-        private string EncondeToken(ClaimsIdentity identityClaims)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var currentIssuer =  $"{_aspNetUser.GetHttpContext().Request.Scheme}://{_aspNetUser.GetHttpContext().Request.Host}";
-            var key = _jwksService.GetCurrent(); 
-            var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
-            {
-                Issuer = currentIssuer,
-                Subject = identityClaims,
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = key
-            });
-
-            var encodedToken = tokenHandler.WriteToken(token);
-            return encodedToken;
-        }
-
-        private UserResponseLogin UserResponseLogin(IdentityUser user, ICollection<Claim> claims, string encodedToken)
-        {
-            return new UserResponseLogin
-            {
-                AccessToken = encodedToken,
-                ExpiresIn = TimeSpan.FromHours(1).TotalSeconds,
-                UserToken = new UserToken
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Claims = claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value })
-                }
-            };
-        }
-
-        private static long ToUnixEpochDate(DateTime date)
-            => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
-
         private async Task<ResponseMessage> RegisterClient(UserRegister userRegister)
         {
-            var user = await _userManager.FindByEmailAsync(userRegister.Email);
+            var user = await _authenticationService.UserManager.FindByEmailAsync(userRegister.Email);
 
             var userRegistered = new UserRegisteredIntegrationEvent(Guid.Parse(user.Id), userRegister.Name, userRegister.Email, userRegister.Cpf);
 
@@ -177,9 +93,29 @@ namespace ESE.Authentication.API.Controllers
             }
             catch 
             {
-               await _userManager.DeleteAsync(user);
+               await _authenticationService.UserManager.DeleteAsync(user);
                throw;
             }          
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult> RefreshToken([FromBody] string refreshToken)
+        {
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                AddProcessingError("Refresh Token inválido");
+                return CustomResponse();
+            }
+
+            var token = await _authenticationService.GetRefreshToken(Guid.Parse(refreshToken));
+
+            if (token is null)
+            {
+                AddProcessingError("Refresh Token expirado");
+                return CustomResponse();
+            }
+
+            return CustomResponse(await _authenticationService.CreateJwt(token.Username));
         }
     }
 }
